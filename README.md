@@ -8,7 +8,7 @@
 ```bash
 npm install
 npm run dev        # סביבת פיתוח: http://localhost:4321
-npm run build      # בדיקת "מקור אמת אחד" + בנייה ל-dist/
+npm run build      # בדיקת "מקור אמת אחד" + בנייה ל-dist/ + בדיקת SEO
 npm run preview    # תצוגה של הבנייה
 npm run check      # בדיקת טיפוסים
 npm run checklist  # יצירת קובץ JSON לצ'קליסט (אחרי build)
@@ -35,6 +35,12 @@ npm run checklist  # יצירת קובץ JSON לצ'קליסט (אחרי build)
 ### מצב הדגמה
 
 `business.demo: true` מציג באנר "אתר הדגמה" בכל העמודים. מכבים אותו רק אחרי שכל פרטי הלקוח האמיתיים הוזנו. תמונות צוות ומשרד מוצגות כמקום ריק מסומן עד שמגיעות תמונות אמיתיות (לא סטוק).
+
+## SEO
+
+- מפת מילים (מילה ראשית ו-Intent לכל עמוד): `src/data/seo.ts`.
+- `scripts/check-seo.mjs` רץ אחרי כל build ונכשל אם: עמוד חסר במפה, שני עמודים חולקים מילה ראשית, ה-Title לא מכיל את המילה הראשית, או ש-Title או meta description כפולים.
+- מחקר מתחרים, קבוצות נושא, Long-tail והתנגדויות: `docs/seo-research.md`.
 
 ## משתני סביבה
 

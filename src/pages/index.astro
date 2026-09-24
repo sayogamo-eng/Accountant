@@ -21,7 +21,7 @@ const why = [
 ];
 ---
 <Base
-  title={`${business.shortName} — רואה חשבון ויועץ מס ב${business.address.city}`}
+  title={`רואה חשבון ב${business.address.searchName} — ${business.shortName}, רואי חשבון ויועצי מס`}
   description={business.description}
   orgSchema
 >
@@ -143,13 +143,13 @@ const why = [
 <style>
   .hero { background: linear-gradient(160deg, #f1f6f8 0%, #fff 60%); padding-block: clamp(2.5rem, 7vw, 5rem); }
   .hero-grid { display: grid; gap: 2rem; align-items: center; }
-  @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.35fr 1fr; gap: 3rem; } }
-  .lead { font-size: 1.1875rem; color: var(--muted); max-width: 640px; margin-bottom: 1.75rem; }
+  @media (min-width: 60em) { .hero-grid { grid-template-columns: 1.35fr 1fr; gap: 3rem; } }
+  .lead { font-size: 1.1875rem; color: var(--muted); max-width: 40em; margin-bottom: 1.75rem; }
   .hc-title { font-weight: 700; color: var(--navy-900); }
   .hero-card { border-top: 4px solid var(--teal-600); }
   .why .ico { display: inline-flex; width: 48px; height: 48px; align-items: center; justify-content: center; border-radius: 12px; background: var(--teal-50); color: var(--teal-700); margin-bottom: .75rem; }
   .why p { color: var(--muted); }
   .about { display: grid; gap: 2rem; align-items: center; }
-  @media (min-width: 960px) { .about { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+  @media (min-width: 60em) { .about { grid-template-columns: 1fr 1fr; gap: 3rem; } }
   .about-media { aspect-ratio: 4 / 3; border-radius: var(--radius); background: repeating-linear-gradient(45deg, var(--bg-soft), var(--bg-soft) 12px, #eceff3 12px, #eceff3 24px); display: flex; align-items: center; justify-content: center; color: var(--muted); border: 2px dashed #c3ccd6; }
 </style>

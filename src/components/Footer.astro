@@ -47,8 +47,8 @@ const year = new Date().getFullYear();
   .site-footer a, .linklike { color: #e6edf5; }
   .site-footer a:hover { color: #7fd1c7; }
   .cols { display: grid; gap: 2rem; }
-  @media (min-width: 720px) { .cols { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1024px) { .cols { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; } }
+  @media (min-width: 45em) { .cols { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 64em) { .cols { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; } }
   .f-title { color: #fff; font-weight: 700; margin-bottom: .75rem; }
   ul { list-style: none; padding: 0; margin: 0; }
   li { margin-bottom: .45rem; }
@@ -58,7 +58,7 @@ const year = new Date().getFullYear();
   .secure :global(svg) { flex: none; margin-top: .25rem; color: #7fd1c7; }
   .social { display: flex; gap: 1rem; }
   .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1.5rem; border-top: 1px solid rgb(255 255 255 / 12%); margin-top: 2.5rem; padding-block: 1.25rem 5.5rem; font-size: .875rem; }
-  @media (min-width: 720px) { .bottom { padding-bottom: 1.25rem; } }
+  @media (min-width: 45em) { .bottom { padding-bottom: 1.25rem; } }
   .bottom p { margin: 0; }
   .bottom ul { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; }
   .linklike { background: none; border: 0; padding: 0; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }

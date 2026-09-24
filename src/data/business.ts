@@ -25,6 +25,8 @@ export const business = {
   address: {
     street: 'רחוב הדוגמה 1, קומה 5',
     city: 'תל אביב-יפו',
+    /** The city name people type into Google (used in titles and the keyword map). */
+    searchName: 'תל אביב',
     postalCode: '6100000',
     country: 'IL',
     mapQuery: 'Tel Aviv-Yafo, Israel',
