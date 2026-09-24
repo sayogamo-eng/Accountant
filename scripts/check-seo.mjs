@@ -15,7 +15,7 @@ async function walk(dir) {
     if (e.isDirectory()) await walk(p);
     else if (e.name.endsWith('.html')) {
       const html = await readFile(p, 'utf8');
-      if (/name="robots" content="noindex/.test(html)) continue;
+      if (/name="robots" content="noindex, follow"/.test(html)) continue; // page-level noindex (404, thank-you); the site-wide block uses "noindex, nofollow"
       const url = p.slice('dist'.length).replace(/\.html$/, '').replace(/^\/index$/, '/');
       pages[url] = {
         title: norm(html.match(/<title>([^<]*)<\/title>/)?.[1] ?? ''),

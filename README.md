@@ -36,6 +36,10 @@ npm run checklist  # יצירת קובץ JSON לצ'קליסט (אחרי build)
 
 `business.demo: true` מציג באנר "אתר הדגמה" בכל העמודים. מכבים אותו רק אחרי שכל פרטי הלקוח האמיתיים הוזנו. תמונות צוות ומשרד מוצגות כמקום ריק מסומן עד שמגיעות תמונות אמיתיות (לא סטוק).
 
+## חסימת אינדוקס (עד שיש דומיין)
+
+`src/data/site.ts` → `allowIndexing = false` מוסיף `noindex` לכל העמודים, כותרת `X-Robots-Tag: noindex` לכל תשובה (ב-`dist/_headers`), ומסיר את ה-sitemap מ-robots.txt. בעלייה לדומיין האמיתי: משנים ל-`true` ומגדירים `SITE_URL`.
+
 ## SEO
 
 - מפת מילים (מילה ראשית ו-Intent לכל עמוד): `src/data/seo.ts`.

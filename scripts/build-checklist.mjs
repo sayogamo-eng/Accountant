@@ -44,7 +44,7 @@ async function walk(dir) {
       const html = await readFile(p, 'utf8');
       const url = p.slice('dist'.length).replace(/\.html$/, '').replace(/\/index$/, '/');
       const h1 = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1]?.replace(/<[^>]+>/g, '').trim() || url;
-      const indexable = !/name="robots" content="noindex/.test(html);
+      const indexable = !/name="robots" content="noindex, follow"/.test(html);
       // design/SEO are built; content is demo copy awaiting the client; no client approval yet
       pages.push({ name: h1, url, content: false, design: true, seo: indexable, approval: false });
     }

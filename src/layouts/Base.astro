@@ -10,6 +10,7 @@ import MobileBar from '@/components/MobileBar.astro';
 import Consent from '@/components/Consent.astro';
 import JsonLd from '@/components/JsonLd.astro';
 import { organizationSchema } from '@/data/schema';
+import { allowIndexing } from '@/data/site';
 
 interface Props {
   title: string;
@@ -37,7 +38,7 @@ const ogUrl = new URL(ogImage, site).href;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    {noindex ? <meta name="robots" content="noindex, follow" /> : !allowIndexing && <meta name="robots" content="noindex, nofollow" />}
     <link rel="preload" href={heeboWoff2} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={heeboBoldWoff2} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
