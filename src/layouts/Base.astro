@@ -1,0 +1,71 @@
+---
+import '@/styles/global.css';
+import heeboWoff2 from '@fontsource/heebo/files/heebo-hebrew-400-normal.woff2?url';
+import { business } from '@/data/business';
+import DemoBanner from '@/components/DemoBanner.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import MobileBar from '@/components/MobileBar.astro';
+import Consent from '@/components/Consent.astro';
+import JsonLd from '@/components/JsonLd.astro';
+import { organizationSchema } from '@/data/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Extra JSON-LD objects for this page. */
+  schema?: Record<string, unknown>[];
+  /** Add the full AccountingService schema (home, contact, about). */
+  orgSchema?: boolean;
+  noindex?: boolean;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+}
+const { title, description, schema = [], orgSchema = false, noindex = false, ogImage = '/og-default.png', ogType = 'website' } = Astro.props;
+const site = Astro.site!;
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/');
+const canonical = new URL(path === '' ? '/' : path, site).href;
+const fullTitle = title.includes(business.shortName) ? title : `${title} | ${business.shortName}`;
+const ogUrl = new URL(ogImage, site).href;
+---
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="preload" href={heeboWoff2} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#13304f" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="he_IL" />
+    <meta property="og:site_name" content={business.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" /><!-- single-source-ignore: image size -->
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {orgSchema && <JsonLd data={organizationSchema(site)} />}
+    {schema.map((s) => <JsonLd data={s} />)}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">דילוג לתוכן הראשי</a>
+    <DemoBanner />
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <MobileBar />
+    <Consent />
+  </body>
+</html>

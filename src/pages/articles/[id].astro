@@ -1,0 +1,50 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { getArticles } from '@/data/articles';
+import { orgRef } from '@/data/schema';
+
+export async function getStaticPaths() {
+  return (await getArticles()).map((a) => ({ params: { id: a.id }, props: { article: a } }));
+}
+const { article } = Astro.props as { article: CollectionEntry<'articles'> };
+const { Content } = await render(article);
+const d = article.data;
+const iso = (x: Date) => x.toISOString().slice(0, 10);
+const fmt = (x: Date) => x.toLocaleDateString('he-IL');
+const url = new URL(`/articles/${article.id}`, Astro.site!).href;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.description,
+  datePublished: iso(d.pubDate),
+  dateModified: iso(d.updatedDate ?? d.pubDate),
+  author: { '@type': 'Person', name: d.author },
+  publisher: orgRef(Astro.site!),
+  mainEntityOfPage: url,
+  inLanguage: 'he',
+};
+---
+<Base title={d.title} description={d.description} schema={[schema]} ogType="article">
+  <PageHero title={d.title} crumbs={[{ href: '/articles', label: 'עדכוני מס' }, { href: `/articles/${article.id}`, label: d.title }]}>
+    <p class="meta">
+      <span class="tag">{d.category}</span>
+      {' '}נכתב על ידי {d.author}{d.reviewedBy && <> · נבדק מקצועית: {d.reviewedBy}</>}
+      {' '}· פורסם: <time datetime={iso(d.pubDate)}>{fmt(d.pubDate)}</time>
+      {d.updatedDate && <> · עודכן: <time datetime={iso(d.updatedDate)}>{fmt(d.updatedDate)}</time></>}
+    </p>
+  </PageHero>
+  <article class="section">
+    <div class="wrap prose">
+      <Content />
+      <p class="note" style="margin-top:2rem">המידע במאמר הוא כללי ואינו מהווה ייעוץ מס אישי. לבדיקת המצב שלך — <a href="/contact">קבעו פגישת ייעוץ</a>.</p>
+    </div>
+  </article>
+  <CtaSection formId="article-form" />
+</Base>
+<style>
+  .meta { color: var(--muted); font-size: .9rem; margin: 0; }
+</style>

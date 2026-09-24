@@ -1,0 +1,23 @@
+---
+import { incomeTaxBrackets, annualBrackets, taxYear } from '@/data/tax';
+import { nis, pct } from '@/data/format';
+import Fig from '../Fig.astro';
+const m = incomeTaxBrackets.monthly;
+const v = incomeTaxBrackets.verified;
+const from = (i: number, arr: { upTo: number }[]) => (i === 0 ? 0 : arr[i - 1].upTo + 1);
+---
+<div class="table-scroll">
+  <table class="data">
+    <caption class="sr-only">מדרגות מס הכנסה ליחיד לשנת {taxYear}</caption>
+    <thead><tr><th scope="col">שיעור מס</th><th scope="col">הכנסה חודשית</th><th scope="col">הכנסה שנתית</th></tr></thead>
+    <tbody>
+      {m.map((b, i) => (
+        <tr>
+          <th scope="row"><Fig value={pct(b.rate)} verified={v} /></th>
+          <td>{Number.isFinite(b.upTo) ? <span class="num">{nis(from(i, m))} – {nis(b.upTo)}</span> : <>מעל <span class="num">{nis(m[i - 1].upTo)}</span></>}</td>
+          <td>{Number.isFinite(annualBrackets[i].upTo) ? <span class="num">{nis(from(i, annualBrackets))} – {nis(annualBrackets[i].upTo)}</span> : <>מעל <span class="num">{nis(annualBrackets[i - 1].upTo)}</span></>}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,155 @@
+---
+import Base from '@/layouts/Base.astro';
+import TrustBar from '@/components/TrustBar.astro';
+import ServiceCards from '@/components/ServiceCards.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import ArticleCards from '@/components/ArticleCards.astro';
+import Icon from '@/components/Icon.astro';
+import { business, yearsActive } from '@/data/business';
+import { services } from '@/data/services';
+import { industries } from '@/data/industries';
+import { getArticles } from '@/data/articles';
+
+const featured = services.slice(0, 6);
+const latest = (await getArticles()).slice(0, 3);
+const why = [
+  { icon: 'clock', title: 'זמינות אמיתית', text: `מענה לכל פנייה תוך ${business.responseHours} שעות ואיש קשר קבוע שמכיר את העסק שלך.` },
+  { icon: 'user', title: 'ליווי אישי', text: 'לא עוד תיק בערימה. שותף במשרד מעורב בכל תיק ובכל החלטה משמעותית.' },
+  { icon: 'bolt', title: 'עבודה דיגיטלית', text: 'שולחים מסמכים מהנייד, מקבלים דוחות למייל, ונפגשים בווידאו או במשרד.' },
+  { icon: 'shield', title: `${yearsActive} שנות ניסיון`, text: 'רואי חשבון ויועצי מס מוסמכים, עם ניסיון מעצמאים ועד חברות בצמיחה.' },
+];
+---
+<Base
+  title={`${business.shortName} — רואה חשבון ויועץ מס ב${business.address.city}`}
+  description={business.description}
+  orgSchema
+>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">רואי חשבון ויועצי מס · {business.address.city}</p>
+        <h1>הנהלת חשבונות ומס בלי כאבי ראש — לעצמאים ולעסקים קטנים</h1>
+        <p class="lead">אנחנו לוקחים את כל הצד הפיננסי והבירוקרטי — דיווחים, דוחות, תכנון מס ושכר — ואת/ה מקבל/ת תמונה ברורה של העסק ואיש קשר שעונה לטלפון.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="/contact">קביעת פגישת ייעוץ ללא עלות</a>
+          <a class="btn btn-outline" href="/pricing">מחירים</a>
+        </div>
+      </div>
+      <div class="hero-card card" aria-hidden="true">
+        <p class="hc-title">מה מקבלים אצלנו</p>
+        <ul class="checklist">
+          <li>דיווחי מע״מ ומקדמות בזמן</li>
+          <li>דוח חודשי קצר וברור</li>
+          <li>בדיקת כל זיכוי והטבה בדוח השנתי</li>
+          <li>תכנון מס לפני כל החלטה גדולה</li>
+          <li>איש קשר קבוע</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <TrustBar />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">השירותים שלנו</span>
+        <h2>כל מה שהעסק צריך — במשרד אחד</h2>
+        <p>מפתיחת התיק ועד דוחות כספיים מבוקרים. בחרו שירות כדי לראות מה כלול, למי הוא מתאים וכמה הוא עולה.</p>
+      </div>
+      <ServiceCards items={featured} />
+      <p style="margin-top:1.5rem"><a href="/services">לכל השירותים ←</a></p>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">למה לבחור בנו</span>
+        <h2>משרד מסודר — כי ככה נראים גם הספרים שלך</h2>
+      </div>
+      <div class="grid grid-4">
+        {why.map((w) => (
+          <div class="card why">
+            <span class="ico"><Icon name={w.icon} /></span>
+            <h3>{w.title}</h3>
+            <p>{w.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap about">
+      <div>
+        <span class="eyebrow">עלינו</span>
+        <h2>משרד בוטיק עם ניסיון של משרד גדול</h2>
+        <p>{business.shortName} הוקם בשנת {business.foundedYear} מתוך הבנה פשוטה: בעלי עסקים לא צריכים עוד משרד גדול שלא עונה לטלפון, אלא שותף מקצועי שמכיר את העסק שלהם.</p>
+        <p>היום אנחנו מלווים {business.activeClients}+ עצמאים, חברות וסטארטאפים — ועדיין עונים לטלפון.</p>
+        <a class="btn btn-outline" href="/about">עוד עלינו</a>
+      </div>
+      <div class="about-media" role="img" aria-label="מקום לתמונת הצוות במשרד">
+        <span>תמונת צוות אמיתית תתווסף כאן</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">למי אנחנו</span>
+        <h2>מתמחים בסוג העסק שלך</h2>
+      </div>
+      <div class="grid grid-3">
+        {industries.map((i) => (
+          <a class="card" href={`/industries/${i.slug}`}>
+            <h3>{i.title}</h3>
+            <p>{i.short}</p>
+            <span class="more">לפרטים ←</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">המלצות</span>
+        <h2>מה הלקוחות שלנו אומרים</h2>
+      </div>
+      <Testimonials />
+      <p style="margin-top:1.5rem"><a href="/testimonials">לכל ההמלצות ←</a></p>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">עדכוני מס</span>
+        <h2>מה חדש במס השנה</h2>
+        <p>עדכוני חקיקה, מדרגות מס ומועדי הגשה — בשפה פשוטה.</p>
+      </div>
+      <ArticleCards items={latest} />
+      <p style="margin-top:1.5rem"><a href="/articles">לכל העדכונים והמדריכים ←</a></p>
+    </div>
+  </section>
+
+  <CtaSection formId="home-form" />
+</Base>
+
+<style>
+  .hero { background: linear-gradient(160deg, #f1f6f8 0%, #fff 60%); padding-block: clamp(2.5rem, 7vw, 5rem); }
+  .hero-grid { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.35fr 1fr; gap: 3rem; } }
+  .lead { font-size: 1.1875rem; color: var(--muted); max-width: 640px; margin-bottom: 1.75rem; }
+  .hc-title { font-weight: 700; color: var(--navy-900); }
+  .hero-card { border-top: 4px solid var(--teal-600); }
+  .why .ico { display: inline-flex; width: 48px; height: 48px; align-items: center; justify-content: center; border-radius: 12px; background: var(--teal-50); color: var(--teal-700); margin-bottom: .75rem; }
+  .why p { color: var(--muted); }
+  .about { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 960px) { .about { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+  .about-media { aspect-ratio: 4 / 3; border-radius: var(--radius); background: repeating-linear-gradient(45deg, var(--bg-soft), var(--bg-soft) 12px, #eceff3 12px, #eceff3 24px); display: flex; align-items: center; justify-content: center; color: var(--muted); border: 2px dashed #c3ccd6; }
+</style>

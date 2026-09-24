@@ -1,0 +1,30 @@
+---
+import { services, type Service } from '@/data/services';
+import Icon from './Icon.astro';
+import { prices } from '@/data/pricing';
+import { nis } from '@/data/format';
+interface Props { items?: Service[]; headingLevel?: 'h2' | 'h3' }
+const { items = services, headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+const fromPrice = (s: Service) => {
+  const p = s.prices.map((k) => prices[k]).filter((p) => p.amount > 0).sort((a, b) => a.amount - b.amount)[0];
+  return p ? `החל מ-${nis(p.amount)} ${p.unit}` : '';
+};
+---
+<div class="grid grid-3">
+  {items.map((s) => (
+    <a class="card svc" href={`/services/${s.slug}`}>
+      <span class="ico"><Icon name={s.icon} /></span>
+      <H>{s.title}</H>
+      <p>{s.short}</p>
+      {fromPrice(s) && <p class="price">{fromPrice(s)}</p>}
+      <span class="more">לפרטים ←</span>
+    </a>
+  ))}
+</div>
+<style>
+  .ico { display: inline-flex; width: 52px; height: 52px; align-items: center; justify-content: center; border-radius: 12px; background: var(--teal-50); color: var(--teal-700); margin-bottom: 1rem; }
+  .svc :global(h3), .svc :global(h2) { font-size: 1.25rem; }
+  .svc p { color: var(--muted); }
+  .price { font-size: .9rem; font-weight: 500; color: var(--navy-800) !important; }
+</style>

@@ -1,0 +1,59 @@
+---
+/**
+ * Cookie consent. Analytics (GA4) loads only after the visitor accepts, and only if
+ * PUBLIC_GA_ID is set. Key events: elements with data-event="..." are reported on click.
+ */
+const gaId = import.meta.env.PUBLIC_GA_ID ?? '';
+---
+<div class="consent" role="dialog" aria-modal="false" aria-labelledby="consent-title" hidden data-ga={gaId}>
+  <div class="wrap inner">
+    <p id="consent-title"><strong>עוגיות ומדידה</strong> — נשמח להשתמש בעוגיות מדידה כדי לשפר את האתר. אפשר לסרב, והאתר ימשיך לעבוד כרגיל. <a href="/privacy#cookies">פרטים במדיניות הפרטיות</a></p>
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary" data-consent="granted">אישור</button>
+      <button type="button" class="btn btn-outline" data-consent="denied">סירוב</button>
+    </div>
+  </div>
+</div>
+<script>
+  const KEY = 'consent.analytics';
+  const box = document.querySelector<HTMLElement>('.consent');
+  const read = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+  const write = (v: string) => { try { localStorage.setItem(KEY, v); } catch { /* storage blocked */ } };
+  const w = window as any;
+
+  function loadAnalytics() {
+    const id = box?.dataset.ga;
+    if (!id || w.gtag) return;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+    document.head.appendChild(s);
+    w.dataLayer = w.dataLayer || [];
+    w.gtag = function () { w.dataLayer.push(arguments); };
+    w.gtag('js', new Date());
+    w.gtag('config', id, { anonymize_ip: true });
+  }
+
+  const state = read();
+  if (state === 'granted') loadAnalytics();
+  else if (!state && box) box.hidden = false;
+
+  document.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    const choice = t.closest<HTMLElement>('[data-consent]')?.dataset.consent;
+    if (choice) {
+      write(choice);
+      if (box) box.hidden = true;
+      if (choice === 'granted') loadAnalytics();
+      return;
+    }
+    if (t.closest('[data-consent-open]') && box) { box.hidden = false; box.querySelector('button')?.focus(); return; }
+    const ev = t.closest<HTMLElement>('[data-event]')?.dataset.event;
+    if (ev && typeof w.gtag === 'function') w.gtag('event', ev, { page_path: location.pathname });
+  });
+</script>
+<style>
+  .consent { position: fixed; inset-inline: 0; bottom: 0; z-index: 60; background: #fff; border-top: 2px solid var(--teal-600); box-shadow: 0 -6px 24px rgb(13 33 55 / 14%); padding-block: 1rem; }
+  .inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+  .inner p { margin: 0; flex: 1 1 420px; font-size: .95rem; }
+</style>

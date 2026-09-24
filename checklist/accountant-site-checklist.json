@@ -1,0 +1,422 @@
+{
+  "format": "websiteBuildChecklist",
+  "version": 3,
+  "projects": [
+    {
+      "id": "p-accountant-site",
+      "name": "אתר תדמית — רואה חשבון / יועץ מס",
+      "state": {
+        "version": 3,
+        "savedAt": "2026-09-24T12:43:22.530Z",
+        "data": {
+          "profile": "corporate",
+          "projectKind": "new",
+          "projectStatus": "in-progress",
+          "siteName": "אתר תדמית לרואה חשבון (תבנית)",
+          "client": "רו״ח / יועץ מס — טרם נבחר (אתר הדגמה)",
+          "domain": "",
+          "owner": "",
+          "platform": "Astro 7 — אתר סטטי",
+          "languages": "עברית (RTL)",
+          "env": "",
+          "startDate": "2026-09-24",
+          "docVersion": "3.0",
+          "updatedDate": "2026-09-24",
+          "track.client.status": "in-progress",
+          "track.research.status": "in-progress",
+          "track.arch.status": "in-progress",
+          "track.build.status": "in-progress",
+          "track.content.status": "waiting-client",
+          "track.onpage.status": "in-progress",
+          "track.tech.status": "in-progress",
+          "track.a11y.status": "in-progress",
+          "track.security.status": "in-progress",
+          "track.legal.status": "in-progress",
+          "track.conversion.status": "in-progress",
+          "stageNotes.client": "שירותים, קהל יעד ומטרות לקוחים מהאיפיון. פרטי העסק עצמם הם נתוני הדגמה עד שייבחר לקוח.",
+          "stageNotes.arch": "כל פרטי העסק ב-src/data/business.ts; מדרגות מס, תקרות ומועדים ב-src/data/tax.ts; מחירים ב-src/data/pricing.ts. בדיקת scripts/check-single-source.mjs רצה לפני כל build ונכשלת אם נתון מוקלד ידנית מחוץ לקבצים האלה. נתון שחסר או שלא אומת מסומן בגלוי (\"לאימות\", באנר הדגמה, מקום לתמונה).",
+          "stageNotes.content": "התוכן הוא טיוטת הדגמה. נתוני המס 2026 נלקחו ממקורות משניים (מצוינים בעמוד) ומסומנים \"לאימות\" עד בדיקת איש מקצוע.",
+          "stageNotes.a11y": "axe-core (WCAG 2 A/AA) על כל 35 העמודים: 0 הפרות. טרם נבדק עם קורא מסך.",
+          "stageNotes.tech": "בדיקת קישורים על כל העמודים: 0 שבורים, 0 עמודים יתומים. Core Web Vitals ייבדקו על הסביבה החיה.",
+          "stageNotes.conversion": "הטופס שולח JSON ל-PUBLIC_FORM_ENDPOINT. עד שיוגדר יעד, הטופס מציג הודעת תקלה עם טלפון/WhatsApp (נבדק). GA4 נטען רק אחרי הסכמה ורק אם הוגדר PUBLIC_GA_ID.",
+          "stageNotes.security": "אתר סטטי ללא ממשק ניהול, ולכן סעיפי התחברות ו-2FA סומנו לא רלוונטיים לאתר עצמו (רלוונטיים לחשבונות האחסון והדומיין)."
+        },
+        "items": {
+          "client.droqrk": "done",
+          "client.177j3iz": "done",
+          "client.1crpez1": "done",
+          "client.a9twts": "done",
+          "client.pgxlp2": "done",
+          "research.1oicwho": "done",
+          "arch.j4ixh": "done",
+          "arch.wkjq54": "done",
+          "arch.169pynt": "done",
+          "arch.151xn62": "done",
+          "arch.gpn24t": "done",
+          "arch.1jawj4s": "done",
+          "arch.312l8p": "done",
+          "arch.1hbs6om": "done",
+          "arch.t34q9q": "done",
+          "arch.1jg0i7i": "done",
+          "arch.6bgkee": "done",
+          "arch.9dg5vu": "done",
+          "arch.6zx50j": "na",
+          "build.7pd4aj": "done",
+          "build.6ypvsj": "done",
+          "build.1lqhrzq": "done",
+          "build.11ajcel": "done",
+          "build.1l6zk72": "done",
+          "build.1otzcin": "done",
+          "build.tck9ug": "done",
+          "build.7jmxh8": "done",
+          "content.1ko9sjf": "done",
+          "content.ek4khb": "done",
+          "content.kl7nph": "done",
+          "content.vugxo9": "done",
+          "content.mqx9ty": "done",
+          "content.1y4nau5": "na",
+          "onpage.1xoovxt": "done",
+          "onpage.14401ru": "done",
+          "onpage.9ff384": "done",
+          "onpage.1yaa2om": "done",
+          "onpage.objta0": "done",
+          "onpage.4gut8s": "done",
+          "onpage.u3l2a8": "done",
+          "onpage.uma6u3": "done",
+          "onpage.1n846j1": "done",
+          "onpage.1k7mb0f": "done",
+          "onpage.fhslzo": "done",
+          "onpage.eoptkw": "done",
+          "onpage.1jgkcke": "done",
+          "tech.uui9u": "done",
+          "tech.1wo2ki3": "done",
+          "tech.1ua2vuf": "done",
+          "tech.oevxyn": "done",
+          "tech.7dg69q": "done",
+          "tech.1u270td": "done",
+          "tech.1tlol43": "done",
+          "tech.16sh0ax": "done",
+          "tech.1bjrhkx": "done",
+          "tech.1upfc6l": "done",
+          "tech.oa03z": "done",
+          "tech.1bbjbwf": "done",
+          "tech.1u5oymx": "na",
+          "a11y.1vcmtom": "done",
+          "a11y.1b9j6aw": "done",
+          "a11y.1bq9gvt": "done",
+          "a11y.19fogwk": "done",
+          "a11y.q53pbh": "done",
+          "a11y.cd8cbp": "done",
+          "a11y.judemv": "done",
+          "a11y.10hq1gy": "done",
+          "a11y.z3qtfj": "na",
+          "security.7un4u2": "done",
+          "security.1bx5asy": "done",
+          "security.1fr4ob1": "done",
+          "security.1clqnuq": "done",
+          "security.17fyx5t": "na",
+          "legal.2so503": "done",
+          "legal.13quhi0": "done",
+          "legal.1o2rg3y": "done",
+          "legal.1knsfkh": "done",
+          "legal.sobcl1": "done",
+          "legal.k7f43c": "done",
+          "legal.8yopvn": "done",
+          "conversion.ydma5z": "done",
+          "conversion.ddldbn": "done",
+          "conversion.goi18b": "done",
+          "conversion.8vyfn7": "done",
+          "conversion.jps696": "done",
+          "conversion.s1qkoo": "done",
+          "conversion.tf5zah": "done",
+          "google.jamjev": "done",
+          "google.ukw62w": "done",
+          "google.1jnjegf": "done"
+        },
+        "waiting": {},
+        "pages": [
+          {
+            "name": "הנהלת חשבונות ומס בלי כאבי ראש — לעצמאים ולעסקים קטנים",
+            "url": "/",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "העמוד לא נמצא",
+            "url": "/404",
+            "content": false,
+            "design": true,
+            "seo": false,
+            "approval": false
+          },
+          {
+            "name": "אודות כהן ושות׳",
+            "url": "/about",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "הצהרת נגישות",
+            "url": "/accessibility",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "עדכוני מס ומדריכים",
+            "url": "/articles",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "מה ההבדל בין עוסק פטור לעוסק מורשה?",
+            "url": "/articles/exempt-vs-licensed-dealer",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "איך פותחים תיק עצמאי — מדריך צעד אחר צעד",
+            "url": "/articles/how-to-open-self-employed-file",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "מדרגות מס הכנסה — הטבלה המעודכנת והסבר פשוט",
+            "url": "/articles/income-tax-brackets",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "ביטוח לאומי לעצמאים — כמה משלמים ואיך מחשבים",
+            "url": "/articles/national-insurance-self-employed",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "קביעת פגישת ייעוץ",
+            "url": "/contact",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "שאלות נפוצות",
+            "url": "/faq",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "למי אנחנו",
+            "url": "/industries",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "רואה חשבון למסחר אלקטרוני",
+            "url": "/industries/ecommerce",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "רואה חשבון לעצמאים ופרילנסרים",
+            "url": "/industries/freelancers",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "רואה חשבון לנדל״ן",
+            "url": "/industries/real-estate",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "רואה חשבון לעסקים קטנים ומשפחתיים",
+            "url": "/industries/small-business",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "רואה חשבון להייטק וסטארטאפים",
+            "url": "/industries/tech-startups",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "מחירים",
+            "url": "/pricing",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "מדיניות פרטיות ואבטחת מידע",
+            "url": "/privacy",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "כלים ומשאבים",
+            "url": "/resources",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "צ׳קליסט מסמכים לדוח השנתי",
+            "url": "/resources/annual-report-checklist",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "לוח מועדי הגשה 2026",
+            "url": "/resources/deadlines",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "מחשבון מס הכנסה וביטוח לאומי",
+            "url": "/resources/tax-calculator",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "השירותים שלנו",
+            "url": "/services",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "דוחות שנתיים ודוחות כספיים",
+            "url": "/services/annual-reports",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "ביקורת דוחות כספיים",
+            "url": "/services/audit",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "הנהלת חשבונות",
+            "url": "/services/bookkeeping",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "ליווי וייעוץ עסקי",
+            "url": "/services/business-advisory",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "פתיחת תיק עצמאי או חברה",
+            "url": "/services/open-business",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "שכר ונוכחות עובדים",
+            "url": "/services/payroll",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "ייעוץ ותכנון מס",
+            "url": "/services/tax-consulting",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "הצוות שלנו",
+            "url": "/team",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "תנאי שימוש",
+            "url": "/terms",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "המלצות לקוחות",
+            "url": "/testimonials",
+            "content": false,
+            "design": true,
+            "seo": true,
+            "approval": false
+          },
+          {
+            "name": "תודה, הפנייה התקבלה",
+            "url": "/thank-you",
+            "content": false,
+            "design": true,
+            "seo": false,
+            "approval": false
+          }
+        ]
+      }
+    }
+  ]
+}

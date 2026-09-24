@@ -1,0 +1,39 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import TrustBar from '@/components/TrustBar.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { business, yearsActive } from '@/data/business';
+import { team } from '@/data/team';
+---
+<Base title="אודות המשרד" description={`${business.name}: ${yearsActive} שנות ניסיון בליווי עצמאים, עסקים וסטארטאפים. הכירו את הגישה שלנו ואת הצוות.`} orgSchema>
+  <PageHero title={`אודות ${business.shortName}`} lead="משרד בוטיק של רואי חשבון ויועצי מס — עם הניסיון של משרד גדול והזמינות של משרד קטן." crumbs={[{ href: '/about', label: 'אודות' }]} />
+  <section class="section">
+    <div class="wrap two">
+      <div class="prose">
+        <h2>הסיפור שלנו</h2>
+        <p>המשרד הוקם בשנת {business.foundedYear} על ידי {team[0].name}, אחרי שנים במשרד רואי חשבון גדול. הרעיון היה פשוט: לתת לעצמאים ולעסקים קטנים-בינוניים את אותה רמה מקצועית שמקבלות חברות גדולות — אבל עם יחס אישי, זמינות ושפה ברורה.</p>
+        <p>היום המשרד מלווה {business.activeClients}+ לקוחות: עצמאים ופרילנסרים, חברות בע״מ, סטארטאפים ועסקים משפחתיים.</p>
+        <h2>הגישה המקצועית שלנו</h2>
+        <ul class="checklist">
+          <li><strong>מסבירים, לא רק מגישים.</strong> כל לקוח מבין מה הוגש בשמו ולמה.</li>
+          <li><strong>מתכננים מראש.</strong> תכנון מס נעשה לפני ההחלטה, לא אחרי.</li>
+          <li><strong>עונים לטלפון.</strong> מענה תוך {business.responseHours} שעות, ואיש קשר קבוע לכל לקוח.</li>
+          <li><strong>עובדים דיגיטלית.</strong> מסמכים מהנייד, דוחות למייל, פגישות בווידאו או במשרד.</li>
+          <li><strong>שומרים על המידע שלך.</strong> מערכות מאובטחות, הרשאות מוגבלות וסודיות מקצועית.</li>
+        </ul>
+        <h2>ההסמכות שלנו</h2>
+        <ul>{business.certifications.map((c) => <li>{c}</li>)}</ul>
+        <p><a class="btn btn-outline" href="/team">הכירו את הצוות</a></p>
+      </div>
+      <div class="photo" role="img" aria-label="מקום לתמונת המשרד"><span>תמונת המשרד תתווסף כאן</span></div>
+    </div>
+  </section>
+  <TrustBar />
+  <CtaSection formId="about-form" />
+</Base>
+<style>
+  .two { display: grid; gap: 2rem; }
+  @media (min-width: 960px) { .two { grid-template-columns: 1.5fr 1fr; gap: 3rem; } }
+  .photo { aspect-ratio: 3 / 4; border-radius: var(--radius); border: 2px dashed #c3ccd6; background: var(--bg-soft); display: flex; align-items: center; justify-content: center; color: var(--muted); position: sticky; top: 100px; }
+</style>

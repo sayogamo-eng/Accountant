@@ -1,0 +1,26 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Icon from '@/components/Icon.astro';
+import { taxYear } from '@/data/tax';
+const tools = [
+  { href: '/resources/tax-calculator', icon: 'calc', title: 'מחשבון מס הכנסה וביטוח לאומי', text: `הערכה מהירה של המס ודמי הביטוח הלאומי לעצמאי/ת לשנת ${taxYear}.` },
+  { href: '/resources/deadlines', icon: 'calendar', title: 'לוח מועדי הגשה', text: 'מתי מדווחים מע״מ, מקדמות, שכר ודוח שנתי.' },
+  { href: '/resources/annual-report-checklist', icon: 'list', title: 'צ׳קליסט לדוח השנתי', text: 'כל המסמכים שצריך לאסוף לפני הגשת הדוח — להדפסה או לשמירה כ-PDF.' },
+];
+---
+<Base title="כלים ומשאבים" description={`מחשבון מס ${taxYear}, לוח מועדי הגשה וצ׳קליסט מסמכים לדוח השנתי — כלים חינמיים לעצמאים ולעסקים.`}>
+  <PageHero title="כלים ומשאבים" lead="כלים חינמיים שיעזרו לך להתכונן — ולהגיע לפגישה עם רואה החשבון מוכנים." crumbs={[{ href: '/resources', label: 'כלים' }]} />
+  <section class="section">
+    <div class="wrap grid grid-3">
+      {tools.map((t) => (
+        <a class="card" href={t.href}>
+          <span style="color:var(--teal-700)"><Icon name={t.icon} size={36} /></span>
+          <h2 style="font-size:1.25rem;margin-top:.75rem">{t.title}</h2>
+          <p>{t.text}</p>
+          <span class="more">לכלי ←</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

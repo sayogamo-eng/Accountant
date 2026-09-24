@@ -1,0 +1,19 @@
+---
+import { business } from '@/data/business';
+---
+<span class="logo">
+  <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+    <rect width="40" height="40" rx="10" fill="#13304f" />
+    <path d="M11 27V13M17 27v-8M23 27v-5M29 27V16" stroke="#7fd1c7" stroke-width="3" stroke-linecap="round" />
+  </svg>
+  <span class="text">
+    <strong>{business.shortName}</strong>
+    <small>רואי חשבון ויועצי מס</small>
+  </span>
+</span>
+<style>
+  .logo { display: inline-flex; align-items: center; gap: .6rem; }
+  .text { display: flex; flex-direction: column; line-height: 1.15; }
+  strong { font-size: 1.2rem; color: var(--navy-900); }
+  small { font-size: .8rem; color: var(--muted); }
+</style>

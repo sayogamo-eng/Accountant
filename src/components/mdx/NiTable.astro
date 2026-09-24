@@ -1,0 +1,26 @@
+---
+import { nationalInsurance as ni, niReducedRate, niFullRate, taxYear } from '@/data/tax';
+import { nis, pct } from '@/data/format';
+import Fig from '../Fig.astro';
+const v = ni.verified;
+---
+<div class="table-scroll">
+  <table class="data">
+    <caption class="sr-only">דמי ביטוח לאומי ובריאות לעצמאים {taxYear}</caption>
+    <thead><tr><th scope="col">הכנסה חודשית</th><th scope="col">ביטוח לאומי</th><th scope="col">ביטוח בריאות</th><th scope="col">סה״כ</th></tr></thead>
+    <tbody>
+      <tr>
+        <th scope="row">עד <Fig value={nis(ni.reducedThresholdMonthly)} verified={v} /></th>
+        <td><Fig value={pct(ni.selfEmployed.reduced.ni)} verified={v} /></td>
+        <td><Fig value={pct(ni.selfEmployed.reduced.health)} verified={v} /></td>
+        <td><strong><Fig value={pct(niReducedRate)} verified={v} /></strong></td>
+      </tr>
+      <tr>
+        <th scope="row">עד התקרה — <Fig value={nis(ni.maxInsurableMonthly)} verified={v} /></th>
+        <td><Fig value={pct(ni.selfEmployed.full.ni)} verified={v} /></td>
+        <td><Fig value={pct(ni.selfEmployed.full.health)} verified={v} /></td>
+        <td><strong><Fig value={pct(niFullRate)} verified={v} /></strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

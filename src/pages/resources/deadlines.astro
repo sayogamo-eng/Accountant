@@ -1,0 +1,28 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Sources from '@/components/Sources.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { deadlines, taxYear } from '@/data/tax';
+---
+<Base title="לוח מועדי הגשה — מע״מ, מקדמות ודוח שנתי" description={`מועדי ההגשה החשובים לעצמאים ולעסקים בשנת ${taxYear}: דיווחי מע״מ, מקדמות מס וביטוח לאומי, שכר ודוח שנתי.`}>
+  <PageHero title={`לוח מועדי הגשה ${taxYear}`} lead="המועדים הקבועים שכל עצמאי/ת ובעל/ת עסק צריכים להכיר. כשמועד חל בשבת או בחג — הוא נדחה ליום העבודה הבא." crumbs={[{ href: '/resources', label: 'כלים' }, { href: '/resources/deadlines', label: 'מועדי הגשה' }]} />
+  <section class="section">
+    <div class="wrap">
+      <div class="table-scroll">
+        <table class="data">
+          <caption class="sr-only">מועדי הגשה קבועים</caption>
+          <thead><tr><th scope="col">דיווח</th><th scope="col">מועד</th><th scope="col">למי רלוונטי</th></tr></thead>
+          <tbody>
+            {deadlines.recurring.map((d) => (
+              <tr><th scope="row">{d.title}</th><td>{d.when}{!deadlines.verified && <span class="unverified">לאימות</span>}</td><td>{d.who}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <Sources sources={deadlines.source} />
+      <p class="note">רשות המסים מפרסמת מדי שנה הארכות למועדי הגשת הדוח השנתי למייצגים. לקוחות המשרד מקבלים תזכורת לפני כל מועד.</p>
+    </div>
+  </section>
+  <CtaSection title="רוצים שנזכיר לכם — ונגיש בשבילכם?" formId="deadlines-form" />
+</Base>

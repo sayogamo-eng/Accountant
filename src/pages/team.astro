@@ -1,0 +1,34 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import Icon from '@/components/Icon.astro';
+import { team } from '@/data/team';
+import { business } from '@/data/business';
+---
+<Base title="הצוות" description={`הכירו את הצוות של ${business.shortName}: רואי חשבון מוסמכים, יועצי מס, מנהלות חשבונות וחשבי שכר.`}>
+  <PageHero title="הצוות שלנו" lead="אנשים אמיתיים, עם הסמכות אמיתיות — ואיש קשר קבוע לכל לקוח." crumbs={[{ href: '/team', label: 'הצוות' }]} />
+  <section class="section">
+    <div class="wrap grid grid-4">
+      {team.map((m) => (
+        <article class="card member">
+          {m.photo
+            ? <img src={m.photo} alt={`${m.name}, ${m.role}`} width="400" height="400" loading="lazy" />
+            : <div class="ph" role="img" aria-label={`מקום לתמונה של ${m.name}`}><Icon name="user" size={56} /></div>}
+          <h2>{m.name}</h2>
+          <p class="role">{m.role}</p>
+          <ul class="tags">{m.credentials.map((c) => <li class="tag">{c}</li>)}</ul>
+          <p class="focus">מתמחה ב{m.focus}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+  <CtaSection formId="team-form" />
+</Base>
+<style>
+  .member h2 { font-size: 1.2rem; margin: 1rem 0 .1rem; }
+  .role { color: var(--teal-700); font-weight: 500; margin-bottom: .5rem; }
+  .focus { color: var(--muted); font-size: .95rem; }
+  .ph, img { aspect-ratio: 1; width: 100%; border-radius: 10px; object-fit: cover; }
+  .ph { display: flex; align-items: center; justify-content: center; background: var(--bg-soft); border: 2px dashed #c3ccd6; color: #8a97a6; }
+</style>

@@ -1,0 +1,21 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import { business } from '@/data/business';
+---
+<Base title="תנאי שימוש" description={`תנאי השימוש באתר ${business.shortName}.`}>
+  <PageHero title="תנאי שימוש" crumbs={[{ href: '/terms', label: 'תנאי שימוש' }]} />
+  <section class="section">
+    <div class="wrap prose">
+      <p class="note"><strong>טיוטה לבדיקה משפטית.</strong></p>
+      <h2>המידע באתר</h2>
+      <p>המידע באתר, לרבות מאמרים, מחשבונים ועדכוני מס, הוא מידע כללי בלבד ואינו מהווה ייעוץ מס, ייעוץ חשבונאי או ייעוץ משפטי. אין להסתמך עליו בלי בדיקה פרטנית של המצב שלך.</p>
+      <h2>מחשבונים</h2>
+      <p>תוצאות המחשבונים הן הערכה בלבד, על בסיס הנתונים המפורסמים ביום העדכון המצוין בעמוד.</p>
+      <h2>קניין רוחני</h2>
+      <p>כל התכנים באתר שייכים ל{business.legalName}. אין להעתיק אותם ללא אישור בכתב.</p>
+      <h2>יצירת קשר</h2>
+      <p>פנייה דרך האתר אינה יוצרת התקשרות מקצועית. התקשרות נוצרת רק בהסכם בכתב.</p>
+    </div>
+  </section>
+</Base>

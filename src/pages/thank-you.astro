@@ -1,0 +1,18 @@
+---
+import Base from '@/layouts/Base.astro';
+import { business, telHref } from '@/data/business';
+---
+<Base title="תודה — הפנייה התקבלה" description="הפנייה התקבלה. נחזור אליך תוך יום עסקים." noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>תודה, הפנייה התקבלה</h1>
+      <p class="lead">נחזור אליך תוך {business.responseHours} שעות בימי עבודה. אם זה דחוף — אפשר להתקשר: <a href={telHref} class="num">{business.phone}</a>.</p>
+      <p>בינתיים, אולי יעניין אותך:</p>
+      <ul>
+        <li><a href="/resources/deadlines">לוח מועדי הגשה</a></li>
+        <li><a href="/resources/annual-report-checklist">צ׳קליסט מסמכים לדוח השנתי</a></li>
+        <li><a href="/articles">עדכוני מס ומדריכים</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>

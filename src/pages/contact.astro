@@ -1,0 +1,37 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import Icon from '@/components/Icon.astro';
+import { business, telHref, mailHref, whatsappHref, fullAddress } from '@/data/business';
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(business.address.mapQuery)}&output=embed&hl=iw`;
+---
+<Base title="צור קשר — קביעת פגישת ייעוץ" description={`קבעו פגישת ייעוץ ראשונית ללא עלות. טלפון ${business.phone}, WhatsApp או טופס קצר — נחזור אליכם תוך יום עסקים.`} orgSchema>
+  <PageHero title="קביעת פגישת ייעוץ" lead="ספרו לנו בקצרה על העסק — ונחזור אליכם תוך יום עסקים לתאם פגישת היכרות ללא עלות." crumbs={[{ href: '/contact', label: 'צור קשר' }]} />
+  <section class="section">
+    <div class="wrap two">
+      <div class="card"><h2 style="font-size:1.375rem">השאירו פרטים</h2><ContactForm id="contact-form" /></div>
+      <div id="direct">
+        <h2 style="font-size:1.375rem">או פנו אלינו ישירות</h2>
+        <ul class="direct">
+          <li><Icon name="phone" /><div><span>טלפון</span><a href={telHref} data-event="phone_click" class="num">{business.phone}</a></div></li>
+          <li><Icon name="whatsapp" /><div><span>WhatsApp</span><a href={whatsappHref()} data-event="whatsapp_click" rel="noopener" target="_blank">שליחת הודעה</a></div></li>
+          <li><Icon name="mail" /><div><span>מייל</span><a href={mailHref} class="num">{business.email}</a></div></li>
+          <li><Icon name="pin" /><div><span>כתובת</span>{fullAddress}</div></li>
+          <li><Icon name="clock" /><div><span>שעות פעילות</span>{business.hours.map((h) => <div>{h.days}: {h.open ? <span class="num">{h.open}–{h.close}</span> : 'סגור'}</div>)}</div></li>
+        </ul>
+        <iframe class="map" title={`מפה — ${fullAddress}`} src={mapSrc} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .two { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 960px) { .two { grid-template-columns: 1.2fr 1fr; gap: 3rem; } }
+  .direct { list-style: none; padding: 0; margin: 0 0 1.5rem; display: grid; gap: 1rem; }
+  .direct li { display: flex; gap: .75rem; align-items: flex-start; }
+  .direct :global(svg) { color: var(--teal-700); flex: none; }
+  .direct span { display: block; font-size: .85rem; color: var(--muted); }
+  .direct a { font-weight: 700; }
+  .map { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--radius); background: var(--bg-soft); }
+</style>

@@ -1,0 +1,12 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Faq from '@/components/Faq.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { faq } from '@/data/faq';
+---
+<Base title="שאלות נפוצות" description="תשובות לשאלות הנפוצות על רואה חשבון, יועץ מס, עוסק פטור, מחירים, עבודה מרחוק ואבטחת מידע.">
+  <PageHero title="שאלות נפוצות" crumbs={[{ href: '/faq', label: 'שאלות נפוצות' }]} />
+  <section class="section"><div class="wrap prose"><Faq items={faq} schema /></div></section>
+  <CtaSection title="לא מצאתם תשובה?" text="שאלו אותנו ישירות — נחזור אליכם תוך יום עסקים." formId="faq-form" />
+</Base>

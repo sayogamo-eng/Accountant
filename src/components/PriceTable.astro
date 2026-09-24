@@ -1,0 +1,18 @@
+---
+import { prices, pricingNote, type PriceKey } from '@/data/pricing';
+import { nis } from '@/data/format';
+interface Props { keys: PriceKey[]; caption?: string }
+const { keys, caption = 'מחירים' } = Astro.props;
+---
+<div class="table-scroll">
+  <table class="data">
+    <caption class="sr-only">{caption}</caption>
+    <thead><tr><th scope="col">שירות</th><th scope="col">החל מ-</th></tr></thead>
+    <tbody>
+      {keys.map((k) => (
+        <tr><th scope="row">{prices[k].label}</th><td>{prices[k].amount === 0 ? 'ללא עלות' : <><span class="num">{nis(prices[k].amount)}</span> {prices[k].unit}</>}</td></tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p style="font-size:.875rem;color:var(--muted);margin-top:.5rem">{pricingNote}</p>

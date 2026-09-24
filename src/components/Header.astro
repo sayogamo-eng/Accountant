@@ -1,0 +1,66 @@
+---
+import { business, telHref } from '@/data/business';
+import { mainNav } from '@/data/nav';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => path === href || path.startsWith(href + '/');
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="/" class="brand" aria-label={`${business.shortName} — דף הבית`}><Logo /></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      <Icon name="menu" size={24} /><span class="sr-only">תפריט</span>
+    </button>
+    <nav id="main-nav" class="nav" aria-label="ניווט ראשי">
+      <ul>
+        {mainNav.map((item) => (
+          <li><a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+      <div class="nav-actions">
+        <a class="phone" href={telHref} data-event="phone_click"><Icon name="phone" size={18} /><span class="num">{business.phone}</span></a>
+        <a class="btn btn-primary" href="/contact">קביעת פגישת ייעוץ</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.getElementById('main-nav');
+  if (toggle && nav) {
+    const set = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('is-open', open);
+    };
+    toggle.addEventListener('click', () => set(toggle.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('is-open')) { set(false); toggle.focus(); }
+    });
+  }
+</script>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; background: rgb(255 255 255 / 97%); border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 72px; }
+  .brand { text-decoration: none; color: var(--navy-900); display: flex; }
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 1px solid var(--line); background: #fff; border-radius: 10px; color: var(--navy-900); cursor: pointer; }
+  .nav { display: none; position: absolute; inset-inline: 0; top: 100%; background: #fff; border-bottom: 1px solid var(--line); padding: 1rem 16px 1.5rem; box-shadow: var(--shadow); }
+  .nav.is-open { display: block; }
+  .nav ul { list-style: none; margin: 0; padding: 0; }
+  .nav li a { display: block; padding: .75rem .25rem; color: var(--ink); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--bg-soft); }
+  .nav a[aria-current='page'] { color: var(--teal-700); }
+  .nav-actions { display: flex; flex-direction: column; gap: .75rem; margin-top: 1rem; }
+  .phone { display: inline-flex; align-items: center; gap: .4rem; font-weight: 700; color: var(--navy-900); text-decoration: none; min-height: 44px; }
+
+  @media (min-width: 1080px) {
+    .menu-toggle { display: none; }
+    .nav { display: flex; position: static; align-items: center; gap: 1.5rem; padding: 0; border: 0; box-shadow: none; background: transparent; }
+    .nav ul { display: flex; gap: .15rem; }
+    .nav li a { border: 0; padding: .5rem .6rem; border-radius: 8px; }
+    .nav li a:hover { background: var(--bg-soft); }
+    .nav a[aria-current='page'] { background: var(--teal-50); }
+    .nav-actions { flex-direction: row; align-items: center; margin: 0; gap: 1rem; }
+  }
+</style>

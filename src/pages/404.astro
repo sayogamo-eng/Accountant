@@ -1,0 +1,14 @@
+---
+import Base from '@/layouts/Base.astro';
+import { mainNav } from '@/data/nav';
+---
+<Base title="העמוד לא נמצא" description="העמוד שחיפשת לא נמצא." noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>העמוד לא נמצא</h1>
+      <p class="lead">ייתכן שהקישור שגוי או שהעמוד הועבר. אפשר להמשיך מכאן:</p>
+      <ul>{mainNav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+      <p><a class="btn btn-primary" href="/">לדף הבית</a></p>
+    </div>
+  </section>
+</Base>

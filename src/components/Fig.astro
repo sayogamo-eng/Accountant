@@ -1,0 +1,9 @@
+---
+/**
+ * Renders a figure that comes from src/data/tax.ts. Unverified figures get a visible
+ * "לאימות" marker, so a value that was not checked against the official source never looks final.
+ */
+interface Props { value: string; verified: boolean }
+const { value, verified } = Astro.props;
+---
+<span class="num">{value}</span>{!verified && <span class="unverified" title="נתון שטרם אומת מול המקור הרשמי">לאימות</span>}

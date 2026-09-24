@@ -1,0 +1,12 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { testimonials } from '@/data/testimonials';
+---
+<Base title="המלצות לקוחות" description="מה אומרים עלינו עצמאים, בעלי עסקים ומייסדי סטארטאפים שאנחנו מלווים.">
+  <PageHero title="המלצות לקוחות" lead="לקוחות עסקיים סומכים על מי שליווה עסקים כמו שלהם. הנה כמה מהם." crumbs={[{ href: '/testimonials', label: 'המלצות' }]} />
+  <section class="section"><div class="wrap"><Testimonials limit={testimonials.length} /></div></section>
+  <CtaSection formId="testimonials-form" />
+</Base>

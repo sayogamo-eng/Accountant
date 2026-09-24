@@ -1,0 +1,11 @@
+---
+import { business } from '@/data/business';
+---
+{business.demo && (
+  <div class="demo-banner" role="note">
+    אתר הדגמה — שם המשרד, פרטי הקשר, הצוות וההמלצות הם נתונים לדוגמה.
+  </div>
+)}
+<style>
+  .demo-banner { background: var(--warn-bg); color: var(--warn-ink); text-align: center; font-size: .875rem; padding: .4rem 1rem; border-bottom: 1px solid #e5c56b; }
+</style>

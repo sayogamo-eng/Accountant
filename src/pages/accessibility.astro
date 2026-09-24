@@ -1,0 +1,31 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import { business } from '@/data/business';
+import { date } from '@/data/format';
+const a = business.accessibility;
+---
+<Base title="הצהרת נגישות" description={`הצהרת הנגישות של אתר ${business.shortName}: רמת הנגישות, התאמות שבוצעו ודרכי פנייה לרכז הנגישות.`}>
+  <PageHero title="הצהרת נגישות" crumbs={[{ href: '/accessibility', label: 'הצהרת נגישות' }]} />
+  <section class="section">
+    <div class="wrap prose">
+      <p>אנחנו רואים חשיבות רבה במתן שירות שוויוני לכל הלקוחות, ופועלים כדי שהאתר יהיה נגיש לאנשים עם מוגבלות.</p>
+      <h2>רמת הנגישות</h2>
+      <p>האתר נבנה בהתאם לתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע״ג-2013, ולתקן הישראלי ת״י 5568 המבוסס על הנחיות WCAG 2.0 ברמה AA.</p>
+      <h2>התאמות שבוצעו</h2>
+      <ul>
+        <li>ניווט מלא במקלדת, כולל קישור "דילוג לתוכן הראשי" ומצב פוקוס בולט.</li>
+        <li>מבנה כותרות היררכי ותגיות סמנטיות לקוראי מסך.</li>
+        <li>ניגודיות צבעים לפי רמה AA, וטקסט שניתן להגדלה עד 200% בלי לשבור את התצוגה.</li>
+        <li>תוויות לכל שדות הטפסים, והודעות שגיאה ברורות ומוקראות.</li>
+        <li>תמיכה בהגדרת המערכת להפחתת תנועה.</li>
+        <li>הנגישות מובנית בקוד האתר ואינה נשענת על תוסף נגישות.</li>
+      </ul>
+      <h2>הסדרי נגישות במשרד</h2>
+      <p>לפרטים על נגישות המשרד הפיזי ועל אפשרות לפגישה בווידאו או בטלפון — פנו לרכז הנגישות.</p>
+      <h2>נתקלת בבעיה?</h2>
+      <p>אם מצאת רכיב שאינו נגיש, נשמח לשמוע ולתקן. רכז הנגישות: {a.coordinator}, טלפון <a href={`tel:${a.phone}`} class="num">{a.phone}</a>, מייל <a href={`mailto:${a.email}`} class="num">{a.email}</a>.</p>
+      <p>תאריך עדכון ההצהרה: <time datetime={a.statementDate}>{date(a.statementDate)}</time></p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,33 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaSection from '@/components/CtaSection.astro';
+const groups = [
+  { title: 'הכנסות', items: ['טופסי 106 מכל מעסיק', 'דוח הכנסות מהעסק / ספרי הנהלת חשבונות', 'אישורי הכנסות מחו״ל', 'הכנסות משכירות', 'טופס 867 — ריבית, דיבידנד ורווחי הון מהבנק ומבית ההשקעות'] },
+  { title: 'הפקדות וזיכויים', items: ['אישורי הפקדה לקופות גמל, פנסיה וקרן השתלמות', 'אישורי ביטוח חיים ואובדן כושר עבודה', 'קבלות על תרומות (סעיף 46)', 'אישורי השלמת תואר או לימודי מקצוע'] },
+  { title: 'מצב אישי ומשפחתי', items: ['ספח תעודת זהות מעודכן', 'אישורים על ילד עם צרכים מיוחדים (אם רלוונטי)', 'אישור שחרור משירות צבאי או לאומי', 'אישור תושבות ביישוב מזכה'] },
+  { title: 'עסק', items: ['חשבוניות הוצאה מקוריות או סרוקות', 'דפי בנק וכרטיסי אשראי של העסק', 'רשימת רכוש קבוע (ציוד, רכב)', 'ספירת מלאי לסוף השנה (אם יש)'] },
+];
+---
+<Base title="צ׳קליסט מסמכים לדוח השנתי" description="רשימת כל המסמכים שצריך לאסוף לפני הגשת הדוח השנתי למס הכנסה — להדפסה או לשמירה כ-PDF.">
+  <PageHero title="צ׳קליסט מסמכים לדוח השנתי" lead="סמנו מה כבר אספתם, ושמרו כ-PDF או הדפיסו. מגיעים לפגישה עם כל המסמכים — וחוסכים סבב שלם." crumbs={[{ href: '/resources', label: 'כלים' }, { href: '/resources/annual-report-checklist', label: 'צ׳קליסט דוח שנתי' }]}>
+    <button type="button" class="btn btn-outline no-print" onclick="window.print()">הדפסה / שמירה כ-PDF</button>
+  </PageHero>
+  <section class="section">
+    <div class="wrap grid grid-2">
+      {groups.map((g, gi) => (
+        <fieldset class="card group">
+          <legend>{g.title}</legend>
+          {g.items.map((it, i) => (
+            <label class="field-check"><input type="checkbox" id={`c-${gi}-${i}`} /><span>{it}</span></label>
+          ))}
+        </fieldset>
+      ))}
+    </div>
+  </section>
+  <CtaSection title="אספתם הכול? נגיש בשבילכם" topic="annual-reports" formId="checklist-form" />
+</Base>
+<style>
+  .group { display: grid; gap: .6rem; margin: 0; }
+  legend { font-weight: 700; font-size: 1.2rem; color: var(--navy-900); padding: 0 .4rem; }
+</style>

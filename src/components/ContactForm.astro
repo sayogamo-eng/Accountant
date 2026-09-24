@@ -1,0 +1,63 @@
+---
+import { services } from '@/data/services';
+import Icon from './Icon.astro';
+interface Props { id?: string; compact?: boolean; defaultTopic?: string; submitLabel?: string }
+const { id = 'lead-form', compact = false, defaultTopic = '', submitLabel = 'שליחה — נחזור אליך תוך יום עסקים' } = Astro.props;
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+const businessTypes = ['עוסק פטור', 'עוסק מורשה', 'חברה בע״מ', 'שכיר/ה', 'עמותה', 'עוד לא פתחתי תיק'];
+---
+<form class="form lead-form" id={id} data-endpoint={endpoint} novalidate>
+  <div class="row">
+    <div class="field">
+      <label for={`${id}-name`}>שם מלא <span class="req" aria-hidden="true">*</span></label>
+      <input id={`${id}-name`} name="name" type="text" autocomplete="name" required aria-describedby={`${id}-name-err`} />
+      <p class="error" id={`${id}-name-err`} hidden>נא למלא שם</p>
+    </div>
+    <div class="field">
+      <label for={`${id}-phone`}>טלפון <span class="req" aria-hidden="true">*</span></label>
+      <input id={`${id}-phone`} name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required pattern="[0-9+\-\s]{9,15}" aria-describedby={`${id}-phone-err`} />
+      <p class="error" id={`${id}-phone-err`} hidden>נא למלא מספר טלפון תקין</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label for={`${id}-type`}>סוג העסק</label>
+      <select id={`${id}-type`} name="businessType">
+        <option value="">בחירה</option>
+        {businessTypes.map((t) => <option>{t}</option>)}
+      </select>
+    </div>
+    <div class="field">
+      <label for={`${id}-topic`}>נושא הפנייה</label>
+      <select id={`${id}-topic`} name="topic">
+        <option value="">בחירה</option>
+        {services.map((s) => <option selected={s.slug === defaultTopic}>{s.title}</option>)}
+        <option>אחר</option>
+      </select>
+    </div>
+  </div>
+  {!compact && (
+    <div class="field">
+      <label for={`${id}-msg`}>במה נוכל לעזור? (לא חובה)</label>
+      <textarea id={`${id}-msg`} name="message" rows="3"></textarea>
+    </div>
+  )}
+  <div class="hp" aria-hidden="true">
+    <label for={`${id}-website`}>אתר</label>
+    <input id={`${id}-website`} name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <input type="hidden" name="utm" />
+  <input type="hidden" name="page" />
+  <label class="field-check">
+    <input type="checkbox" name="newsletter" value="yes" />
+    <span>אשמח לקבל עדכוני מס במייל (אפשר להסיר בכל עת)</span>
+  </label>
+  <p class="secure-note"><Icon name="lock" size={16} />המידע נשלח בחיבור מוצפן ומשמש רק לחזרה אליך. <a href="/privacy">מדיניות פרטיות</a></p>
+  <div class="form-status" role="alert" hidden></div>
+  <div><button class="btn btn-primary" type="submit">{submitLabel}</button></div>
+</form>
+
+<script>
+  import { initLeadForms } from '@/scripts/lead-form';
+  initLeadForms();
+</script>

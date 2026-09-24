@@ -1,0 +1,21 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { services } from '@/data/services';
+---
+<Base title="מחירים — כמה עולה רואה חשבון" description="מחירי החל מ- לכל שירותי המשרד: הנהלת חשבונות, דוחות שנתיים, ייעוץ מס, שכר ופתיחת תיק. שקיפות מלאה לפני שמתחילים.">
+  <PageHero title="מחירים" lead="אנחנו מאמינים בשקיפות. אלה מחירי הפתיחה לכל שירות; הצעת המחיר הסופית נקבעת בפגישת ההיכרות לפי היקף הפעילות." crumbs={[{ href: '/pricing', label: 'מחירים' }]} />
+  <section class="section">
+    <div class="wrap grid grid-2">
+      {services.map((s) => (
+        <div class="card">
+          <h2 style="font-size:1.3rem"><a href={`/services/${s.slug}`}>{s.title}</a></h2>
+          <PriceTable keys={s.prices} caption={`מחירים — ${s.title}`} />
+        </div>
+      ))}
+    </div>
+  </section>
+  <CtaSection title="רוצים הצעת מחיר מדויקת?" formId="pricing-form" />
+</Base>

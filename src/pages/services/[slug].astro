@@ -1,0 +1,84 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import Faq from '@/components/Faq.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import ServiceCards from '@/components/ServiceCards.astro';
+import { services, type Service } from '@/data/services';
+import { industries } from '@/data/industries';
+import { orgRef } from '@/data/schema';
+import { business } from '@/data/business';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+const { service } = Astro.props as { service: Service };
+const related = industries.filter((i) => i.services.includes(service.slug));
+const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.title,
+  description: service.metaDescription,
+  serviceType: service.title,
+  provider: orgRef(Astro.site!),
+  areaServed: business.areaServed,
+  url: new URL(`/services/${service.slug}`, Astro.site!).href,
+};
+---
+<Base title={service.metaTitle} description={service.metaDescription} schema={[schema]}>
+  <PageHero title={service.title} lead={service.intro} crumbs={[{ href: '/services', label: 'שירותים' }, { href: `/services/${service.slug}`, label: service.title }]}>
+    <a class="btn btn-primary" href="#svc-form">{service.cta}</a>
+  </PageHero>
+  <section class="section">
+    <div class="wrap two">
+      <div>
+        <h2>מה כולל השירות</h2>
+        <ul class="checklist">{service.includes.map((i) => <li>{i}</li>)}</ul>
+        <h2>למי זה מתאים</h2>
+        <ul class="tags">{service.forWho.map((w) => <li class="tag">{w}</li>)}</ul>
+        {service.note && <p class="note">{service.note}</p>}
+        {related.length > 0 && (
+          <>
+            <h2>תחומי התמחות רלוונטיים</h2>
+            <ul>{related.map((i) => <li><a href={`/industries/${i.slug}`}>{i.title}</a></li>)}</ul>
+          </>
+        )}
+      </div>
+      <aside class="card price-card" aria-labelledby="price-title">
+        <h2 id="price-title">כמה זה עולה</h2>
+        <PriceTable keys={service.prices} caption={`מחירים — ${service.title}`} />
+        <a class="btn btn-primary" href="#svc-form" style="width:100%">{service.cta}</a>
+      </aside>
+    </div>
+  </section>
+  {service.faq.length > 0 && (
+    <section class="section section--soft">
+      <div class="wrap prose">
+        <h2>שאלות נפוצות על {service.title}</h2>
+        <Faq items={service.faq} schema />
+      </div>
+    </section>
+  )}
+  <section class="section">
+    <div class="wrap">
+      <h2>לקוחות מספרים</h2>
+      <Testimonials />
+    </div>
+  </section>
+  <div id="svc-form"><CtaSection title={service.cta} topic={service.slug} formId="svc-form-f" /></div>
+  <section class="section section--soft">
+    <div class="wrap">
+      <h2>שירותים נוספים</h2>
+      <ServiceCards items={others} />
+    </div>
+  </section>
+</Base>
+<style>
+  .two { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 960px) { .two { grid-template-columns: 1.4fr 1fr; gap: 3rem; } .price-card { position: sticky; top: 100px; } }
+  .two h2 { font-size: 1.5rem; margin-top: 1.5rem; }
+  .two h2:first-child { margin-top: 0; }
+</style>

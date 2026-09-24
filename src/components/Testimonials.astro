@@ -1,0 +1,20 @@
+---
+import { testimonials } from '@/data/testimonials';
+interface Props { limit?: number; industry?: string }
+const { limit = 3, industry } = Astro.props;
+const list = (industry ? [...testimonials.filter((t) => t.industry === industry), ...testimonials.filter((t) => t.industry !== industry)] : testimonials).slice(0, limit);
+---
+<div class="grid grid-3">
+  {list.map((t) => (
+    <figure class="card t">
+      <blockquote>״{t.quote}״</blockquote>
+      <figcaption><strong>{t.name}</strong><span>{t.business}</span></figcaption>
+    </figure>
+  ))}
+</div>
+<style>
+  .t { margin: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; }
+  blockquote { margin: 0; font-size: 1.05rem; }
+  figcaption { display: flex; flex-direction: column; font-size: .9rem; color: var(--muted); }
+  figcaption strong { color: var(--navy-900); }
+</style>

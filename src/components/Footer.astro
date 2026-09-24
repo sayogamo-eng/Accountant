@@ -1,0 +1,65 @@
+---
+import { business, telHref, mailHref, whatsappHref, fullAddress } from '@/data/business';
+import { footerNav, legalNav, mainNav } from '@/data/nav';
+import { services } from '@/data/services';
+import Icon from './Icon.astro';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div>
+      <p class="f-title">{business.name}</p>
+      <ul class="contact">
+        <li><Icon name="phone" size={18} /><a href={telHref} data-event="phone_click" class="num">{business.phone}</a></li>
+        <li><Icon name="whatsapp" size={18} /><a href={whatsappHref()} data-event="whatsapp_click" rel="noopener" target="_blank">WhatsApp</a></li>
+        <li><Icon name="mail" size={18} /><a href={mailHref} class="num">{business.email}</a></li>
+        <li><Icon name="pin" size={18} /><span>{fullAddress}</span></li>
+        {business.hours.map((h) => (
+          <li><Icon name="clock" size={18} /><span>{h.days}: {h.open ? <span class="num">{h.open}–{h.close}</span> : 'סגור'}</span></li>
+        ))}
+      </ul>
+    </div>
+    <nav aria-label="שירותים">
+      <p class="f-title">שירותים</p>
+      <ul>{services.map((s) => <li><a href={`/services/${s.slug}`}>{s.title}</a></li>)}</ul>
+    </nav>
+    <nav aria-label="ניווט משני">
+      <p class="f-title">המשרד</p>
+      <ul>{[...mainNav.filter((i) => i.href !== '/services'), ...footerNav].map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+    </nav>
+    <div>
+      <p class="f-title">אבטחת מידע</p>
+      <p class="secure"><Icon name="lock" size={18} /> החיבור לאתר מוצפן (HTTPS). המסמכים שלך מטופלים בסודיות מקצועית ונשמרים במערכות מאובטחות.</p>
+      {business.clientPortal.url && <p><a class="btn btn-light" href={business.clientPortal.url} rel="noopener">{business.clientPortal.label}</a></p>}
+      <ul class="social">
+        <li><a href={business.social.facebook} rel="noopener" target="_blank">Facebook</a></li>
+        <li><a href={business.social.linkedin} rel="noopener" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap bottom">
+    <p>© {year} {business.legalName} · ח.פ. <span class="num">{business.businessId}</span></p>
+    <nav aria-label="מידע משפטי"><ul>{legalNav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}<li><button type="button" class="linklike" data-consent-open>הגדרות עוגיות</button></li></ul></nav>
+  </div>
+</footer>
+<style>
+  .site-footer { background: var(--navy-900); color: #c9d5e2; padding-top: 3.5rem; font-size: .975rem; }
+  .site-footer a, .linklike { color: #e6edf5; }
+  .site-footer a:hover { color: #7fd1c7; }
+  .cols { display: grid; gap: 2rem; }
+  @media (min-width: 720px) { .cols { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .cols { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; } }
+  .f-title { color: #fff; font-weight: 700; margin-bottom: .75rem; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { margin-bottom: .45rem; }
+  .contact li { display: flex; gap: .5rem; align-items: center; }
+  .contact :global(svg) { color: #7fd1c7; flex: none; }
+  .secure { display: flex; gap: .5rem; align-items: flex-start; }
+  .secure :global(svg) { flex: none; margin-top: .25rem; color: #7fd1c7; }
+  .social { display: flex; gap: 1rem; }
+  .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1.5rem; border-top: 1px solid rgb(255 255 255 / 12%); margin-top: 2.5rem; padding-block: 1.25rem 5.5rem; font-size: .875rem; }
+  @media (min-width: 720px) { .bottom { padding-bottom: 1.25rem; } }
+  .bottom p { margin: 0; }
+  .bottom ul { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; }
+  .linklike { background: none; border: 0; padding: 0; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+</style>

@@ -1,0 +1,11 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import ArticleCards from '@/components/ArticleCards.astro';
+import { getArticles } from '@/data/articles';
+const articles = await getArticles();
+---
+<Base title="עדכוני מס ומדריכים" description="עדכוני מס, מדרגות מס, ביטוח לאומי ומועדי הגשה — ומדריכים מעשיים לעצמאים ולעסקים, בשפה פשוטה.">
+  <PageHero title="עדכוני מס ומדריכים" lead="כל מה שמשתנה בכל שנת מס — ומדריכים מעשיים לעצמאים ולבעלי עסקים. נכתב ונבדק על ידי אנשי המקצוע במשרד." crumbs={[{ href: '/articles', label: 'עדכוני מס' }]} />
+  <section class="section"><div class="wrap"><ArticleCards items={articles} /></div></section>
+</Base>

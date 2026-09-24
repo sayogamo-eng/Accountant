@@ -1,0 +1,40 @@
+---
+title: 'מדרגות מס הכנסה — הטבלה המעודכנת והסבר פשוט'
+description: 'כמה מס הכנסה משלמים על כל שקל? טבלת מדרגות המס החודשיות והשנתיות, נקודות זיכוי ומס יסף — מתעדכן בכל שנת מס.'
+category: 'עדכון מס'
+pubDate: 2026-01-10
+updatedDate: 2026-09-24
+author: 'רו״ח דנה כהן'
+reviewedBy: 'רו״ח דנה כהן, יועצת מס מוסמכת'
+---
+import { taxYear, incomeTaxBrackets, surtax, creditPoint, creditPointAnnual, topBracketRate } from '@/data/tax';
+import { nis, pct } from '@/data/format';
+import Fig from '@/components/Fig.astro';
+import Sources from '@/components/Sources.astro';
+import TaxBracketsTable from '@/components/mdx/TaxBracketsTable.astro';
+
+**בקצרה:** מס הכנסה בישראל מחושב במדרגות — כל שקל ממוסה לפי המדרגה שבה הוא נמצא, ולא כל ההכנסה לפי המדרגה העליונה. בשנת {taxYear} יש שש מדרגות, מ-{pct(incomeTaxBrackets.monthly[0].rate)} ועד {pct(topBracketRate)}, ומעליהן מס יסף.
+
+## טבלת מדרגות המס לשנת {taxYear}
+
+<TaxBracketsTable />
+
+<Sources sources={incomeTaxBrackets.source} />
+
+## איך זה עובד בפועל
+
+נניח שההכנסה החייבת שלך היא בדיוק בגובה המדרגה השנייה. השקלים הראשונים ממוסים ב-{pct(incomeTaxBrackets.monthly[0].rate)}, והחלק שמעליהם — ב-{pct(incomeTaxBrackets.monthly[1].rate)}. מעבר למדרגה גבוהה יותר **לא** מייקר את המס על ההכנסה שמתחתיה.
+
+## נקודות זיכוי
+
+אחרי חישוב המס לפי המדרגות, מפחיתים ממנו נקודות זיכוי. שווי נקודת זיכוי אחת בשנת {taxYear} הוא <Fig value={nis(creditPoint.monthly)} verified={creditPoint.verified} /> בחודש (<Fig value={nis(creditPointAnnual)} verified={creditPoint.verified} /> בשנה). תושב ישראל זכאי ל-{creditPoint.basePointsMan} נקודות בסיס, ותושבת ל-{creditPoint.basePointsWoman}. נקודות נוספות ניתנות בין היתר להורים, לחיילים משוחררים ולבעלי תואר.
+
+<Sources sources={creditPoint.source} />
+
+## מס יסף
+
+על הכנסה שנתית מעל <Fig value={nis(surtax.annualThreshold)} verified={surtax.verified} /> משולם מס נוסף בשיעור {pct(surtax.rate)}.
+
+## רוצים לדעת כמה מס תשלמו?
+
+אפשר לקבל הערכה ראשונית ב[מחשבון מס הכנסה וביטוח לאומי](/resources/tax-calculator), ולחישוב מדויק שכולל את כל ההטבות שמגיעות לך — [לקבוע פגישת ייעוץ](/contact).

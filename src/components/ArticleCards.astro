@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { items: CollectionEntry<'articles'>[] }
+const { items } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString('he-IL');
+---
+<div class="grid grid-3">
+  {items.map((a) => {
+    const d = a.data.updatedDate ?? a.data.pubDate;
+    return (
+      <a class="card art" href={`/articles/${a.id}`}>
+        <span class="tag">{a.data.category}</span>
+        <h3>{a.data.title}</h3>
+        <p>{a.data.description}</p>
+        <p class="meta">{a.data.updatedDate ? 'עודכן' : 'פורסם'}: <time datetime={d.toISOString().slice(0, 10)}>{fmt(d)}</time></p>
+      </a>
+    );
+  })}
+</div>
+<style>
+  .art h3 { margin-top: .75rem; }
+  .art p { color: var(--muted); }
+  .meta { font-size: .85rem; }
+</style>

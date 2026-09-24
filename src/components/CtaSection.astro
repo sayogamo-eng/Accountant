@@ -1,0 +1,43 @@
+---
+import { business, telHref, whatsappHref } from '@/data/business';
+import { testimonials } from '@/data/testimonials';
+import ContactForm from './ContactForm.astro';
+import Icon from './Icon.astro';
+interface Props { title?: string; text?: string; topic?: string; formId?: string }
+const {
+  title = 'קבעו פגישת ייעוץ ראשונית — בלי עלות',
+  text = 'חצי שעה שבה נבין את העסק שלך, נבדוק מה המצב היום ונציע מסלול עבודה והצעת מחיר ברורה.',
+  topic = '',
+  formId = 'cta-form',
+} = Astro.props;
+const quote = testimonials[0];
+---
+<section class="section section--dark cta" aria-labelledby={`${formId}-title`}>
+  <div class="wrap cols">
+    <div>
+      <span class="eyebrow">פגישת היכרות</span>
+      <h2 id={`${formId}-title`}>{title}</h2>
+      <p class="lead">{text}</p>
+      <ul class="direct">
+        <li><a href={telHref} data-event="phone_click"><Icon name="phone" size={20} /><span class="num">{business.phone}</span></a></li>
+        <li><a href={whatsappHref()} data-event="whatsapp_click" rel="noopener" target="_blank"><Icon name="whatsapp" size={20} />שליחת הודעה ב-WhatsApp</a></li>
+      </ul>
+      <figure class="quote">
+        <blockquote>״{quote.quote}״</blockquote>
+        <figcaption>{quote.name}, {quote.business}</figcaption>
+      </figure>
+    </div>
+    <div class="card form-card"><ContactForm id={formId} compact defaultTopic={topic} /></div>
+  </div>
+</section>
+<style>
+  .cols { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 960px) { .cols { grid-template-columns: 1fr 1fr; gap: 3.5rem; } }
+  .lead { color: #c9d5e2; font-size: 1.125rem; }
+  .direct { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: .5rem; }
+  .direct a { display: inline-flex; align-items: center; gap: .5rem; color: #fff; font-weight: 700; min-height: 44px; }
+  .quote { margin: 1.5rem 0 0; border-inline-start: 3px solid #7fd1c7; padding-inline-start: 1rem; }
+  .quote blockquote { margin: 0 0 .4rem; color: #e6edf5; }
+  .quote figcaption { font-size: .9rem; color: #9fb2c6; }
+  .form-card { color: var(--ink); }
+</style>

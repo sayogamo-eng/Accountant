@@ -1,0 +1,32 @@
+---
+title: 'ביטוח לאומי לעצמאים — כמה משלמים ואיך מחשבים'
+description: 'שיעורי דמי ביטוח לאומי ובריאות לעצמאים, ההכנסה שעליה מחושב השיעור המופחת, התקרה, ואיך מתאימים את המקדמות להכנסה בפועל.'
+category: 'עדכון מס'
+pubDate: 2026-01-20
+updatedDate: 2026-09-24
+author: 'רו״ח אבי כהן'
+reviewedBy: 'רו״ח דנה כהן, יועצת מס מוסמכת'
+---
+import { taxYear, nationalInsurance as ni, niReducedRate, niFullRate } from '@/data/tax';
+import { nis, pct } from '@/data/format';
+import Fig from '@/components/Fig.astro';
+import Sources from '@/components/Sources.astro';
+import NiTable from '@/components/mdx/NiTable.astro';
+
+**בקצרה:** עצמאי/ת משלם/ת בשנת {taxYear} <Fig value={pct(niReducedRate)} verified={ni.verified} /> על ההכנסה עד <Fig value={nis(ni.reducedThresholdMonthly)} verified={ni.verified} /> בחודש, ו-<Fig value={pct(niFullRate)} verified={ni.verified} /> על ההכנסה שמעל, עד התקרה.
+
+## שיעורי דמי הביטוח לשנת {taxYear}
+
+<NiTable />
+
+<Sources sources={ni.source} />
+
+השיעור המופחת חל על הכנסה עד 60% מהשכר הממוצע במשק (<Fig value={nis(ni.averageWage)} verified={ni.verified} /> בחודש). על הכנסה שמעל התקרה לא משלמים דמי ביטוח.
+
+## מקדמות — ולמה כדאי לעדכן אותן
+
+ביטוח לאומי גובה מקדמות חודשיות לפי הערכת ההכנסה שלך. אם ההכנסה בפועל גבוהה יותר — יגיע חוב בסוף השנה. אם נמוכה יותר — משלמים יותר מדי עכשיו. כדאי לעדכן את ההערכה בכל שינוי משמעותי.
+
+## חשוב לדעת
+
+חלק מדמי הביטוח הלאומי מוכר כהוצאה וחלק מזכה בניכוי, ולכן העלות בפועל נמוכה מהשיעור הנקוב. הערכה ראשונית אפשר לקבל ב[מחשבון](/resources/tax-calculator).

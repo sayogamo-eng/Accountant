@@ -1,0 +1,108 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Sources from '@/components/Sources.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { calculatorData, taxYear, incomeTaxBrackets, nationalInsurance, creditPoint } from '@/data/tax';
+
+const allVerified = incomeTaxBrackets.verified && nationalInsurance.verified && creditPoint.verified;
+---
+<Base title={`מחשבון מס הכנסה וביטוח לאומי לעצמאים ${taxYear}`} description={`מחשבון חינמי להערכת מס הכנסה ודמי ביטוח לאומי ובריאות לעצמאים לפי המדרגות של ${taxYear}.`}>
+  <PageHero title="מחשבון מס הכנסה וביטוח לאומי" lead={`הערכה מהירה לעצמאי/ת לשנת ${taxYear}, לפי מדרגות המס, נקודות הזיכוי ושיעורי הביטוח הלאומי העדכניים.`} crumbs={[{ href: '/resources', label: 'כלים' }, { href: '/resources/tax-calculator', label: 'מחשבון מס' }]} />
+  <section class="section">
+    <div class="wrap two">
+      <form class="card form" id="calc" data-tax={JSON.stringify(calculatorData)} novalidate>
+        <div class="field">
+          <label for="profit">רווח שנתי חייב במס (₪)</label>
+          <input id="profit" name="profit" type="number" inputmode="numeric" min="0" step="1000" value="180000" dir="ltr" />
+        </div>
+        <div class="field">
+          <label for="gender">נקודות זיכוי בסיס</label>
+          <select id="gender" name="gender">
+            <option value="man">תושב ({calculatorData.basePoints.man} נקודות)</option>
+            <option value="woman">תושבת ({calculatorData.basePoints.woman} נקודות)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="extra">נקודות זיכוי נוספות (ילדים, תואר וכו׳)</label>
+          <input id="extra" name="extra" type="number" inputmode="decimal" min="0" step="0.25" value="0" dir="ltr" />
+        </div>
+        <button class="btn btn-primary" type="submit">חישוב</button>
+      </form>
+      <div class="card result" aria-live="polite">
+        <h2 style="font-size:1.375rem">התוצאה (הערכה שנתית)</h2>
+        {!allVerified && <p class="unverified" style="margin:0 0 1rem">חלק מהנתונים לאימות</p>}
+        <dl>
+          <div><dt>מס הכנסה (אחרי נקודות זיכוי)</dt><dd id="r-tax" class="num">—</dd></div>
+          <div><dt>מס יסף</dt><dd id="r-surtax" class="num">—</dd></div>
+          <div><dt>ביטוח לאומי ובריאות</dt><dd id="r-ni" class="num">—</dd></div>
+          <div class="total"><dt>נשאר לך נטו</dt><dd id="r-net" class="num">—</dd></div>
+          <div><dt>שיעור מס כולל אפקטיבי</dt><dd id="r-rate" class="num">—</dd></div>
+        </dl>
+        <p class="disclaimer">ההערכה אינה כוללת ניכוי דמי ביטוח לאומי, הפקדות לפנסיה, הטבות ישוב וזיכויים נוספים. היא אינה מהווה ייעוץ מס — לחישוב מדויק <a href="/contact">קבעו פגישה</a>.</p>
+      </div>
+    </div>
+    <div class="wrap">
+      <Sources sources={[...incomeTaxBrackets.source, ...nationalInsurance.source, ...creditPoint.source]} />
+    </div>
+  </section>
+  <CtaSection title="רוצים חישוב מדויק — ותכנון שיחסוך מס?" topic="tax-consulting" formId="calc-form" />
+</Base>
+
+<script>
+  type Data = {
+    brackets: { upTo: number | null; rate: number }[];
+    surtax: { threshold: number; rate: number };
+    creditPointAnnual: number;
+    basePoints: { man: number; woman: number };
+    ni: { reducedThreshold: number; max: number; reducedRate: number; fullRate: number };
+  };
+  const form = document.getElementById('calc') as HTMLFormElement;
+  const d: Data = JSON.parse(form.dataset.tax!);
+  const nf = new Intl.NumberFormat('he-IL', { maximumFractionDigits: 0 });
+  const nis = (n: number) => `${nf.format(Math.round(n))} ₪`;
+  const set = (id: string, v: string) => { document.getElementById(id)!.textContent = v; };
+
+  function incomeTax(income: number) {
+    let tax = 0, prev = 0;
+    for (const b of d.brackets) {
+      const top = b.upTo ?? Infinity;
+      if (income <= prev) break;
+      tax += (Math.min(income, top) - prev) * b.rate;
+      prev = top;
+    }
+    return tax;
+  }
+  function ni(income: number) {
+    const capped = Math.min(income, d.ni.max);
+    const low = Math.min(capped, d.ni.reducedThreshold);
+    return low * d.ni.reducedRate + Math.max(0, capped - d.ni.reducedThreshold) * d.ni.fullRate;
+  }
+  function calc() {
+    const fd = new FormData(form);
+    const profit = Math.max(0, Number(fd.get('profit')) || 0);
+    const points = d.basePoints[fd.get('gender') as 'man' | 'woman'] + Math.max(0, Number(fd.get('extra')) || 0);
+    const tax = Math.max(0, incomeTax(profit) - points * d.creditPointAnnual);
+    const surtax = Math.max(0, profit - d.surtax.threshold) * d.surtax.rate;
+    const n = ni(profit);
+    const total = tax + surtax + n;
+    set('r-tax', nis(tax));
+    set('r-surtax', nis(surtax));
+    set('r-ni', nis(n));
+    set('r-net', nis(profit - total));
+    set('r-rate', profit ? `${((total / profit) * 100).toFixed(1)}%` : '—');
+  }
+  form.addEventListener('submit', (e) => { e.preventDefault(); calc(); });
+  form.addEventListener('input', calc);
+  calc();
+</script>
+
+<style>
+  .two { display: grid; gap: 1.5rem; align-items: start; margin-bottom: 1rem; }
+  @media (min-width: 960px) { .two { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+  dl { margin: 0 0 1rem; }
+  dl > div { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--line); }
+  dd { margin: 0; font-weight: 700; }
+  .total dt, .total dd { font-size: 1.2rem; color: var(--teal-700); }
+  .disclaimer { font-size: .875rem; color: var(--muted); }
+</style>
