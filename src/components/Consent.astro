@@ -1,9 +1,10 @@
 ---
 /**
  * Cookie consent. Analytics (GA4) loads only after the visitor accepts, and only if
- * PUBLIC_GA_ID is set. Key events: elements with data-event="..." are reported on click.
+ * a measurement ID is set (src/data/site.ts). Key events: elements with data-event="..." are reported on click.
  */
-const gaId = import.meta.env.PUBLIC_GA_ID ?? '';
+import { gaMeasurementId } from '@/data/site';
+const gaId = import.meta.env.PUBLIC_GA_ID || gaMeasurementId;
 ---
 <div class="consent" role="dialog" aria-modal="false" aria-labelledby="consent-title" hidden data-ga={gaId}>
   <div class="wrap inner">

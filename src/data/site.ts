@@ -10,3 +10,10 @@
  * fetch the pages to see the noindex, otherwise URLs can still appear in results.
  */
 export const allowIndexing = false;
+
+/**
+ * Google Analytics 4 measurement ID (public by design — it appears in every page's code).
+ * Loaded only after the visitor accepts cookies. PUBLIC_GA_ID in the environment overrides it.
+ * Empty string = no analytics.
+ */
+export const gaMeasurementId = 'G-ETZ5NLZJ5S';
