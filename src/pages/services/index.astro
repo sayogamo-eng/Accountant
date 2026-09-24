@@ -3,6 +3,7 @@ import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import ServiceCards from '@/components/ServiceCards.astro';
 import CtaSection from '@/components/CtaSection.astro';
+import { accountantVsTaxAdvisor } from '@/data/faq';
 ---
 <Base title="שירותי ראיית חשבון וייעוץ מס" description="הנהלת חשבונות, דוחות שנתיים, ייעוץ ותכנון מס, שכר, ליווי עסקי, פתיחת תיק וביקורת דוחות — כל השירותים ומחירי החל מ-.">
   <PageHero title="השירותים שלנו" lead="לא בטוחים מה אתם צריכים? הנה ההסבר הקצר: הנהלת חשבונות היא השוטף, הדוח השנתי הוא הסיכום, ותכנון מס הוא מה שחוסך כסף. אפשר גם פשוט להתקשר ולשאול." crumbs={[{ href: '/services', label: 'שירותים' }]} />
@@ -10,7 +11,7 @@ import CtaSection from '@/components/CtaSection.astro';
     <div class="wrap">
       <ServiceCards headingLevel="h2" />
       <div class="note" style="margin-top:2rem">
-        <strong>רואה חשבון או יועץ מס?</strong> יועץ מס מתמחה בדיני המס ובייצוג מול רשות המסים. רואה חשבון מוסמך רשאי גם לבקר ולחתום על דוחות כספיים — יועץ מס אינו מוסמך לכך. במשרד שלנו יש את שתי ההסמכות.
+        <strong>{accountantVsTaxAdvisor.q}</strong> {accountantVsTaxAdvisor.a}
       </div>
     </div>
   </section>

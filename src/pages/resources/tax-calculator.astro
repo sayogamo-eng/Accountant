@@ -8,7 +8,7 @@ import { calculatorData, taxYear, incomeTaxBrackets, nationalInsurance, creditPo
 const allVerified = incomeTaxBrackets.verified && nationalInsurance.verified && creditPoint.verified;
 ---
 <Base title={`מחשבון מס הכנסה וביטוח לאומי לעצמאים ${taxYear}`} description={`מחשבון חינמי להערכת מס הכנסה ודמי ביטוח לאומי ובריאות לעצמאים לפי המדרגות של ${taxYear}.`}>
-  <PageHero title="מחשבון מס הכנסה וביטוח לאומי" lead={`הערכה מהירה לעצמאי/ת לשנת ${taxYear}, לפי מדרגות המס, נקודות הזיכוי ושיעורי הביטוח הלאומי העדכניים.`} crumbs={[{ href: '/resources', label: 'כלים' }, { href: '/resources/tax-calculator', label: 'מחשבון מס' }]} />
+  <PageHero title="מחשבון מס הכנסה וביטוח לאומי" lead={`הערכה מהירה לעצמאים לשנת ${taxYear}, לפי מדרגות המס, נקודות הזיכוי ושיעורי הביטוח הלאומי העדכניים.`} crumbs={[{ href: '/resources', label: 'כלים' }, { href: '/resources/tax-calculator', label: 'מחשבון מס' }]} />
   <section class="section">
     <div class="wrap two">
       <form class="card form" id="calc" data-tax={JSON.stringify(calculatorData)} novalidate>
@@ -39,7 +39,7 @@ const allVerified = incomeTaxBrackets.verified && nationalInsurance.verified && 
           <div class="total"><dt>נשאר לך נטו</dt><dd id="r-net" class="num">—</dd></div>
           <div><dt>שיעור מס כולל אפקטיבי</dt><dd id="r-rate" class="num">—</dd></div>
         </dl>
-        <p class="disclaimer">ההערכה אינה כוללת ניכוי דמי ביטוח לאומי, הפקדות לפנסיה, הטבות ישוב וזיכויים נוספים. היא אינה מהווה ייעוץ מס — לחישוב מדויק <a href="/contact">קבעו פגישה</a>.</p>
+        <p class="disclaimer">ההערכה אינה כוללת ניכוי דמי ביטוח לאומי, הפקדות לפנסיה, הטבות יישוב וזיכויים נוספים. היא אינה מהווה ייעוץ מס — לחישוב מדויק <a href="/contact">קבעו פגישה</a>.</p>
       </div>
     </div>
     <div class="wrap">

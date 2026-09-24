@@ -4,7 +4,7 @@ import Icon from './Icon.astro';
 interface Props { id?: string; compact?: boolean; defaultTopic?: string; submitLabel?: string }
 const { id = 'lead-form', compact = false, defaultTopic = '', submitLabel = 'שליחה — נחזור אליך תוך יום עסקים' } = Astro.props;
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
-const businessTypes = ['עוסק פטור', 'עוסק מורשה', 'חברה בע״מ', 'שכיר/ה', 'עמותה', 'עוד לא פתחתי תיק'];
+const businessTypes = ['עוסק פטור', 'עוסק מורשה', 'חברה בע״מ', 'שכיר', 'עמותה', 'עוד לא פתחתי תיק'];
 ---
 <form class="form lead-form" id={id} data-endpoint={endpoint} novalidate>
   <div class="row">

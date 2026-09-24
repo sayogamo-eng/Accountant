@@ -13,7 +13,7 @@ import Fig from '@/components/Fig.astro';
 import Sources from '@/components/Sources.astro';
 import NiTable from '@/components/mdx/NiTable.astro';
 
-**בקצרה:** עצמאי/ת משלם/ת בשנת {taxYear} <Fig value={pct(niReducedRate)} verified={ni.verified} /> על ההכנסה עד <Fig value={nis(ni.reducedThresholdMonthly)} verified={ni.verified} /> בחודש, ו-<Fig value={pct(niFullRate)} verified={ni.verified} /> על ההכנסה שמעל, עד התקרה.
+**בקצרה:** עצמאים משלמים בשנת {taxYear} <Fig value={pct(niReducedRate)} verified={ni.verified} /> על ההכנסה עד <Fig value={nis(ni.reducedThresholdMonthly)} verified={ni.verified} /> בחודש, ו-<Fig value={pct(niFullRate)} verified={ni.verified} /> על ההכנסה שמעל, עד התקרה.
 
 ## שיעורי דמי הביטוח לשנת {taxYear}
 
@@ -21,7 +21,7 @@ import NiTable from '@/components/mdx/NiTable.astro';
 
 <Sources sources={ni.source} />
 
-השיעור המופחת חל על הכנסה עד 60% מהשכר הממוצע במשק (<Fig value={nis(ni.averageWage)} verified={ni.verified} /> בחודש). על הכנסה שמעל התקרה לא משלמים דמי ביטוח.
+השיעור המופחת חל על הכנסה של עד 60% מהשכר הממוצע במשק. השכר הממוצע לשנת {taxYear} הוא <Fig value={nis(ni.averageWage)} verified={ni.verified} /> בחודש. על הכנסה שמעל התקרה לא משלמים דמי ביטוח.
 
 ## מקדמות — ולמה כדאי לעדכן אותן
 

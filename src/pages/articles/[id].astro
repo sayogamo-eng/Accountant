@@ -32,7 +32,7 @@ const schema = {
   <PageHero title={d.title} crumbs={[{ href: '/articles', label: 'עדכוני מס' }, { href: `/articles/${article.id}`, label: d.title }]}>
     <p class="meta">
       <span class="tag">{d.category}</span>
-      {' '}נכתב על ידי {d.author}{d.reviewedBy && <> · נבדק מקצועית: {d.reviewedBy}</>}
+      {' '}נכתב על ידי {d.author}{d.reviewedBy && !d.reviewedBy.startsWith(d.author) && <> · נבדק מקצועית: {d.reviewedBy}</>}
       {' '}· פורסם: <time datetime={iso(d.pubDate)}>{fmt(d.pubDate)}</time>
       {d.updatedDate && <> · עודכן: <time datetime={iso(d.updatedDate)}>{fmt(d.updatedDate)}</time></>}
     </p>
