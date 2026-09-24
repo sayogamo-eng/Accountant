@@ -16,8 +16,8 @@ const noindexHeader = {
   },
 };
 
-// The production domain. Replace per client before launch (also used for canonical, OG and sitemap).
-const SITE_URL = process.env.SITE_URL || 'https://www.example-cpa.co.il';
+// The site's public address (canonical, Open Graph, sitemap, schema). Change to the real domain when one is bought.
+const SITE_URL = process.env.SITE_URL || 'https://accountant-8or.pages.dev';
 
 export default defineConfig({
   site: SITE_URL,
