@@ -4,7 +4,7 @@ import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import CtaSection from '@/components/CtaSection.astro';
 import { getArticles } from '@/data/articles';
-import { orgRef } from '@/data/schema';
+import { publisherSchema } from '@/data/schema';
 
 export async function getStaticPaths() {
   return (await getArticles()).map((a) => ({ params: { id: a.id }, props: { article: a } }));
@@ -23,7 +23,8 @@ const schema = {
   datePublished: iso(d.pubDate),
   dateModified: iso(d.updatedDate ?? d.pubDate),
   author: { '@type': 'Person', name: d.author },
-  publisher: orgRef(Astro.site!),
+  publisher: publisherSchema(Astro.site!),
+  image: new URL('/og-default.png', Astro.site!).href,
   mainEntityOfPage: url,
   inLanguage: 'he',
 };

@@ -4,6 +4,7 @@ import PageHero from '@/components/PageHero.astro';
 import Icon from '@/components/Icon.astro';
 import { taxYear } from '@/data/tax';
 const tools = [
+  { href: '/resources/self-employed-guide', icon: 'report', title: `המדריך לעצמאי ${taxYear} (PDF)`, text: 'עוסק פטור או מורשה, פתיחת תיק, ביטוח לאומי, מדרגות מס ומועדים — במסמך אחד להורדה.' },
   { href: '/resources/tax-calculator', icon: 'calc', title: 'מחשבון מס הכנסה וביטוח לאומי', text: `הערכה מהירה של המס ודמי הביטוח הלאומי לעצמאים לשנת ${taxYear}.` },
   { href: '/resources/deadlines', icon: 'calendar', title: 'לוח מועדי הגשה', text: 'מתי מדווחים מע״מ, מקדמות, שכר ודוח שנתי.' },
   { href: '/resources/annual-report-checklist', icon: 'list', title: 'צ׳קליסט לדוח השנתי', text: 'כל המסמכים שצריך לאסוף לפני הגשת הדוח — להדפסה או לשמירה כ-PDF.' },

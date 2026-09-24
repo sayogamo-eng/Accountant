@@ -6,6 +6,7 @@ import { appendFile } from 'node:fs/promises';
 import { allowIndexing } from './src/data/site.ts';
 
 // Adds a site-wide X-Robots-Tag header (Cloudflare Pages / Netlify _headers) while indexing is blocked.
+/** @type {import('astro').AstroIntegration} */
 const noindexHeader = {
   name: 'noindex-header',
   hooks: {
@@ -26,7 +27,7 @@ export default defineConfig({
     mdx(),
     noindexHeader,
     sitemap({
-      filter: (page) => !/\/(thank-you|404)(\.html)?$/.test(page),
+      filter: (page) => !/\/(thank-you|guide-download|404)(\.html)?$|\/guides\//.test(page),
     }),
   ],
 });

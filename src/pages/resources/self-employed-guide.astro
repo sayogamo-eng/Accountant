@@ -1,0 +1,28 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import { taxYear } from '@/data/tax';
+const contents = ['עוסק פטור או מורשה — איך בוחרים', 'פתיחת תיק בשלוש הרשויות', 'ביטוח לאומי ובריאות לעצמאים', 'מדרגות מס הכנסה ונקודות זיכוי', 'מועדי דיווח קבועים', 'חמישה הרגלים שחוסכים מס'];
+---
+<Base title={`המדריך לעצמאי ${taxYear} — PDF להורדה חינם`} description={`מדריך PDF חינמי לעצמאים ל-${taxYear}: עוסק פטור או מורשה, פתיחת תיק, ביטוח לאומי, מדרגות מס ומועדי דיווח — במסמך אחד.`}>
+  <PageHero title={`המדריך לעצמאי ${taxYear}`} lead="כל מה שצריך לדעת כדי לפתוח ולנהל עסק עצמאי — במסמך PDF אחד, מעודכן לשנת המס הנוכחית." crumbs={[{ href: '/resources', label: 'כלים' }, { href: '/resources/self-employed-guide', label: 'המדריך לעצמאי' }]} />
+  <section class="section">
+    <div class="wrap two">
+      <div>
+        <h2 style="font-size:1.375rem">מה במדריך</h2>
+        <ul class="checklist">{contents.map((c) => <li>{c}</li>)}</ul>
+        <p style="color:var(--muted)">כל הנתונים במדריך מתעדכנים יחד עם האתר בתחילת כל שנת מס.</p>
+      </div>
+      <div class="card">
+        <h2 style="font-size:1.375rem">לקבלת המדריך</h2>
+        <p>השאירו שם וטלפון, והמדריך ייפתח להורדה מיד.</p>
+        <ContactForm id="guide-form" compact defaultTopic="" topicValue={`מדריך לעצמאי ${taxYear}`} successUrl="/guide-download" submitLabel="לקבלת המדריך" />
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .two { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 60em) { .two { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+</style>

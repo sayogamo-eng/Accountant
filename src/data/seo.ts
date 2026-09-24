@@ -48,6 +48,7 @@ export const keywordMap: Record<string, KeywordEntry> = {
   '/resources': { primary: 'כלים ומשאבים', intent: 'navigational' },
   '/resources/tax-calculator': { primary: 'מחשבון מס הכנסה', intent: 'transactional', secondary: ['מחשבון ביטוח לאומי לעצמאים'] },
   '/resources/deadlines': { primary: 'מועדי הגשה', intent: 'informational', secondary: ['מועד הגשת דוח שנתי', 'מועד דיווח מע״מ'] },
+  '/resources/self-employed-guide': { primary: 'המדריך לעצמאי', intent: 'transactional', secondary: ['מדריך לעצמאי PDF', 'מדריך לפתיחת עסק'] },
   '/resources/annual-report-checklist': { primary: 'מסמכים לדוח השנתי', intent: 'informational', secondary: ['אילו מסמכים צריך לדוח שנתי'] },
   '/faq': { primary: 'שאלות נפוצות', intent: 'informational' },
   '/contact': { primary: 'פגישת ייעוץ', intent: 'transactional', secondary: ['צור קשר'] },

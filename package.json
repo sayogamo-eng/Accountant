@@ -5,12 +5,14 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run check:data && astro build && npm run check:seo",
+    "build": "npm run check:data && astro build && npm run check:seo && npm run check:guide",
     "check:seo": "node scripts/check-seo.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "check:data": "node scripts/check-single-source.mjs",
-    "checklist": "node scripts/build-checklist.mjs"
+    "checklist": "node scripts/build-checklist.mjs",
+    "check:guide": "node scripts/check-guide.mjs",
+    "guide:pdf": "npm run check:data && astro build && node scripts/build-guide-pdf.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "playwright": "^1.56.1",
     "typescript": "^6.0.3"
   }
 }

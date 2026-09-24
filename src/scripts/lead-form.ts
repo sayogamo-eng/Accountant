@@ -67,7 +67,7 @@ export function initLeadForms() {
           body: JSON.stringify(data),
         });
         if (!res.ok) throw new Error(`Form endpoint responded ${res.status}`);
-        location.href = '/thank-you';
+        location.href = form.dataset.success || '/thank-you';
       } catch (err) {
         console.error('[lead-form] submit failed', err);
         const w = window as any;

@@ -32,6 +32,7 @@ export const project = {
     'track.legal.status': 'in-progress',
     'track.conversion.status': 'in-progress',
     'stageNotes.research': 'מחקר מתחרים, קבוצות נושא, Long-tail, חיפושים מקומיים והתנגדויות: docs/seo-research.md. מפת מילים (מילה ראשית + Intent לכל URL): src/data/seo.ts, נאכפת בבדיקה אחרי כל build. לא נבדקו נפחי חיפוש — לאמת בכלי מילות מפתח עם הלקוח.',
+    'stageNotes.onpage': 'Schema נבדק מקומית עם structured-data-testing-tool (Google presets) בכל 38 העמודים: 0 שגיאות, אחרי תיקון Article (image, publisher.logo). הבדיקה הרשמית ב-Rich Results Test תיעשה על הדומיין החי.',
     'stageNotes.google': 'רשימת עמודים לבקשת אינדוקס: docs/seo-research.md סעיף 7.',
     'stageNotes.build': 'Wireframes לא נדרשו: העיצוב נבנה ישירות בקוד ומוצג ללקוח לאישור על סביבת ה-Staging. Staging: Cloudflare Pages (accountant-8or.pages.dev). חסום לאינדוקס דרך allowIndexing=false ב-src/data/site.ts: noindex בכל עמוד + X-Robots-Tag בכל תשובה. אומת ב-robots.txt החי.',
     'stageNotes.client': 'שירותים, קהל יעד ומטרות לקוחים מהאיפיון. פרטי העסק עצמם הם נתוני הדגמה עד שייבחר לקוח.',
@@ -39,7 +40,7 @@ export const project = {
     'stageNotes.content': 'הגהה בוצעה על כל טקסט האתר (664 שורות): אחידות פנייה ברבים, כתיב, כפילויות ושאלה כפולה אוחדה למקור אחד. יש לבצע הגהה נוספת אחרי שהלקוח ימסור תוכן אמיתי. התוכן הוא טיוטת הדגמה. נתוני המס 2026 נלקחו ממקורות משניים (מצוינים בעמוד) ומסומנים "לאימות" עד בדיקת איש מקצוע.',
     'stageNotes.a11y': 'axe-core (WCAG 2 A/AA) על כל 35 העמודים: 0 הפרות. מקלדת: דילוג לתוכן, תפריט (Enter/Esc), שאלות נפוצות, באנר עוגיות וטופס — נבדקו. טקסט 200%, זום 200% ו-320px: ללא גלילה אופקית. טרם נבדק עם קורא מסך.',
     'stageNotes.tech': 'תמונות: תמונות צוות עוברות דרך astro:assets ומומרות אוטומטית ל-AVIF/WebP ב-3 גדלים (נבדק עם תמונת בדיקה). Cache: קבצי /_astro ב-immutable לשנה, CDN של Cloudflare. בדיקת קישורים: 0 שבורים, 0 עמודים יתומים. Lighthouse מובייל (מעבדה): ביצועים 100, LCP 1.2 שניות, CLS 0, TBT 0 — נגישות/SEO/Best practices 100. נתוני שטח ייבדקו 30 יום אחרי העלייה.',
-    'stageNotes.conversion': 'הטופס שולח JSON ל-PUBLIC_FORM_ENDPOINT. עד שיוגדר יעד, הטופס מציג הודעת תקלה עם טלפון/WhatsApp (נבדק). GA4 נטען רק אחרי הסכמה ורק אם הוגדר PUBLIC_GA_ID.',
+    'stageNotes.conversion': 'הטופס שולח ל-/api/lead (Cloudflare Pages Function) שמעביר כל ליד למייל (Resend), ל-KV ול-Webhook — לפי מה שהוגדר. נבדקו 8 תרחישים כולל כשל של יעד אחד. נשאר: להגדיר מפתח Resend ו/או KV ב-Cloudflare ולבצע שליחת בדיקה אמיתית. מגנט לידים: מדריך PDF לעצמאי מאחורי טופס. GA4 נטען רק אחרי הסכמה ורק אם הוגדר PUBLIC_GA_ID.',
     'stageNotes.security': 'גיבוי: כל שינוי נשמר ב-GitHub, והאתר נבנה מחדש מהריפו. שחזור נבדק: שכפול טרי מ-GitHub + npm ci + build נתן אתר זהה לחלוטין. SSL ו-CDN מנוהלים אוטומטית ע״י Cloudflare. 2FA והרשאות — לחשבונות GitHub ו-Cloudflare (באחריות בעל החשבון). אתר סטטי ללא ממשק ניהול, ולכן סעיפי התחברות ו-2FA סומנו לא רלוונטיים לאתר עצמו (רלוונטיים לחשבונות האחסון והדומיין).',
   },
 };

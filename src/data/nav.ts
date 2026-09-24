@@ -14,6 +14,7 @@ export const footerNav = [
   { href: '/faq', label: 'שאלות נפוצות' },
   { href: '/resources/deadlines', label: 'מועדי הגשה' },
   { href: '/resources/tax-calculator', label: 'מחשבון מס' },
+  { href: '/resources/self-employed-guide', label: 'המדריך לעצמאי (PDF)' },
 ];
 
 export const legalNav = [

@@ -41,3 +41,11 @@ export function organizationSchema(site: URL) {
 }
 
 export const orgRef = (site: URL) => ({ '@id': new URL('/#organization', site).href, name: business.name, address: fullAddress });
+
+/** Publisher block for Article schema (Google requires @type and a logo). */
+export const publisherSchema = (site: URL) => ({
+  '@type': 'Organization',
+  '@id': new URL('/#organization', site).href,
+  name: business.name,
+  logo: { '@type': 'ImageObject', url: new URL('/icon-512.png', site).href, width: 512, height: 512 },
+});

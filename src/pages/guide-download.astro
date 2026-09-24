@@ -1,0 +1,15 @@
+---
+import Base from '@/layouts/Base.astro';
+import { taxYear } from '@/data/tax';
+import { business, telHref } from '@/data/business';
+---
+<Base title="המדריך מוכן להורדה" description="המדריך לעצמאי מוכן להורדה." noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>תודה! המדריך מוכן</h1>
+      <p class="lead">אפשר להוריד אותו עכשיו. בנוסף, נחזור אליך תוך {business.responseHours} שעות בימי עבודה, אם תרצה/י לעבור עליו יחד.</p>
+      <p><a class="btn btn-primary" href="/guides/self-employed-guide.pdf" download={`המדריך-לעצמאי-${taxYear}.pdf`} data-event="guide_download">הורדת המדריך (PDF)</a></p>
+      <p>שאלה דחופה? <a href={telHref} class="num">{business.phone}</a></p>
+    </div>
+  </section>
+</Base>

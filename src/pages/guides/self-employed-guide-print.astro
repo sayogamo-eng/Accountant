@@ -1,0 +1,105 @@
+---
+/**
+ * Print source for the lead-magnet PDF (public/guides/self-employed-guide.pdf).
+ * Every figure comes from src/data/. Regenerate the PDF after any change: npm run guide:pdf
+ * (the build fails while the PDF is out of date — see scripts/check-guide.mjs).
+ */
+import '@/styles/global.css';
+import { business, fullAddress } from '@/data/business';
+import { taxYear, updatedAt, exemptDealer, vat, creditPoint, surtax, deadlines, incomeTaxBrackets, nationalInsurance } from '@/data/tax';
+import { nis, pct, date } from '@/data/format';
+import Fig from '@/components/Fig.astro';
+import TaxBracketsTable from '@/components/mdx/TaxBracketsTable.astro';
+import NiTable from '@/components/mdx/NiTable.astro';
+const sources = [...incomeTaxBrackets.source, ...nationalInsurance.source, ...exemptDealer.source];
+---
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex, follow" />
+  <title>המדריך לעצמאי {taxYear} | {business.shortName}</title>
+</head>
+<body>
+<main class="guide">
+  <section class="cover">
+    <p class="eyebrow">{business.name}</p>
+    <h1>המדריך לעצמאי</h1>
+    <p class="sub">כל מה שצריך לדעת כדי לפתוח ולנהל עסק עצמאי בשנת {taxYear}: מסלול, רשויות, ביטוח לאומי, מס הכנסה ומועדי דיווח.</p>
+    <p class="meta">מעודכן ל-{date(updatedAt)}</p>
+  </section>
+
+  <section>
+    <h2>1. עוסק פטור או עוסק מורשה?</h2>
+    <p>עוסק פטור לא גובה מע״מ ומגיש הצהרה שנתית אחת, כל עוד המחזור השנתי נמוך מהתקרה: <Fig value={nis(exemptDealer.annualCeiling)} verified={exemptDealer.verified} /> בשנת {taxYear}. עוסק מורשה גובה מע״מ בשיעור <Fig value={pct(vat.rate)} verified={vat.verified} />, מדווח באופן שוטף ויכול לקזז מע״מ על הוצאות.</p>
+    <ul class="checklist">
+      <li><strong>עוסק פטור מתאים</strong> כשהמחזור נמוך מהתקרה בפער ברור, ורוב הלקוחות פרטיים.</li>
+      <li><strong>עוסק מורשה מתאים</strong> כשהלקוחות הם עסקים, כשיש השקעה ראשונית גדולה, או כשצפוי לעבור את התקרה.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>2. פתיחת תיק — שלוש רשויות</h2>
+    <ol>
+      <li><strong>מע״מ:</strong> רישום כעוסק פטור או מורשה.</li>
+      <li><strong>מס הכנסה:</strong> פתיחת תיק וקביעת מקדמות.</li>
+      <li><strong>ביטוח לאומי:</strong> דיווח על תחילת עבודה כעצמאי וקביעת מקדמות.</li>
+    </ol>
+    <p>מה להכין: תעודת זהות וספח, פרטי חשבון בנק, תיאור הפעילות וכתובת העסק, והערכת הכנסות לשנה הראשונה.</p>
+  </section>
+
+  <section class="break">
+    <h2>3. ביטוח לאומי ובריאות לעצמאים</h2>
+    <NiTable />
+  </section>
+
+  <section>
+    <h2>4. מדרגות מס הכנסה</h2>
+    <TaxBracketsTable />
+    <p>מהמס מפחיתים נקודות זיכוי: נקודה אחת שווה <Fig value={nis(creditPoint.monthly)} verified={creditPoint.verified} /> בחודש. תושב זכאי ל-{creditPoint.basePointsMan} נקודות בסיס ותושבת ל-{creditPoint.basePointsWoman}. על הכנסה שנתית מעל <Fig value={nis(surtax.annualThreshold)} verified={surtax.verified} /> משולם מס יסף של {pct(surtax.rate)}.</p>
+  </section>
+
+  <section class="break">
+    <h2>5. מועדי דיווח קבועים</h2>
+    <table class="data">
+      <thead><tr><th scope="col">דיווח</th><th scope="col">מועד</th><th scope="col">למי</th></tr></thead>
+      <tbody>{deadlines.recurring.map((d) => <tr><th scope="row">{d.title}</th><td>{d.when}{!deadlines.verified && <span class="unverified">לאימות</span>}</td><td>{d.who}</td></tr>)}</tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>6. חמישה הרגלים שחוסכים מס וכאב ראש</h2>
+    <ol>
+      <li>חשבון בנק נפרד לעסק — בלי ערבוב עם הוצאות פרטיות.</li>
+      <li>צילום כל קבלה ביום שמקבלים אותה, ושמירה בתיקייה דיגיטלית אחת.</li>
+      <li>עדכון מקדמות מס וביטוח לאומי בכל שינוי משמעותי בהכנסה.</li>
+      <li>הפקדה לפנסיה ולקרן השתלמות — שתיהן מזכות בהטבות מס לעצמאים.</li>
+      <li>התייעצות עם רואה החשבון לפני החלטה גדולה (רכב, ציוד, מעבר לחברה) — לא אחריה.</li>
+    </ol>
+  </section>
+
+  <section class="contact">
+    <h2>רוצים שנעשה את זה בשבילכם?</h2>
+    <p>{business.name} · {fullAddress}</p>
+    <p class="num">{business.phone} · {business.email}</p>
+    <p class="fine">המידע במדריך הוא כללי ואינו מהווה ייעוץ מס אישי. מקורות: {sources.map((s) => s.label).join(' · ')}.</p>
+  </section>
+</main>
+<style is:global>
+  @page { size: A4; margin: 16mm 16mm 18mm; }
+  body { background: #fff; font-size: 11.5pt; line-height: 1.6; }
+  .guide { max-width: 178mm; margin: 0 auto; }
+  .guide section { margin-bottom: 7mm; break-inside: avoid; }
+  .guide section.break { break-before: page; }
+  .guide h2 { font-size: 16pt; border-bottom: 2px solid var(--teal-600); padding-bottom: 2mm; margin-bottom: 4mm; }
+  .cover { background: var(--navy-900); color: #e6edf5; padding: 14mm 12mm; border-radius: 4mm; margin-bottom: 9mm !important; }
+  .cover h1 { color: #fff; font-size: 32pt; margin: 2mm 0 4mm; }
+  .cover .eyebrow { color: #7fd1c7; }
+  .cover .sub { font-size: 13pt; color: #c9d5e2; }
+  .cover .meta { font-size: 10pt; color: #9fb2c6; margin: 0; }
+  .guide table.data { font-size: 10.5pt; }
+  .contact { background: var(--bg-soft); padding: 6mm 8mm; border-radius: 3mm; }
+  .fine { font-size: 8.5pt; color: var(--muted); margin: 3mm 0 0; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+</style>
+</body>
+</html>

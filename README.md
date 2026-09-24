@@ -46,12 +46,29 @@ npm run checklist  # יצירת קובץ JSON לצ'קליסט (אחרי build)
 - `scripts/check-seo.mjs` רץ אחרי כל build ונכשל אם: עמוד חסר במפה, שני עמודים חולקים מילה ראשית, ה-Title לא מכיל את המילה הראשית, או ש-Title או meta description כפולים.
 - מחקר מתחרים, קבוצות נושא, Long-tail והתנגדויות: `docs/seo-research.md`.
 
+## טופס הפניות (Cloudflare)
+
+`functions/api/lead.js` מקבל את הטופס ב-`/api/lead` ומעביר כל פנייה לכל היעדים שהוגדרו. הפנייה נחשבת כנשלחה אם לפחות יעד אחד קיבל אותה:
+
+1. **מייל** (Resend): משתני סביבה `RESEND_API_KEY`, `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL`
+2. **שמירה ב-Cloudflare KV**: חיבור (binding) בשם `LEADS`
+3. **Webhook** (Google Sheets / Make / CRM): משתנה `LEAD_WEBHOOK_URL`
+
+מגדירים ב-Cloudflare → Workers & Pages → הפרויקט → Settings. אם אף יעד לא מוגדר או שכולם נכשלו, הגולש רואה הודעה עם טלפון ו-WhatsApp.
+
+## המדריך לעצמאי (PDF)
+
+- עמוד המקור: `src/pages/guides/self-employed-guide-print.astro`. כל הנתונים נלקחים מ-`src/data/`.
+- יצירת ה-PDF מחדש: `npm run guide:pdf` (דורש Chromium של Playwright).
+- `scripts/check-guide.mjs` מכשיל את ה-build אם תוכן המדריך השתנה (למשל נתון מס חדש) וה-PDF לא נוצר מחדש.
+- עמוד ההורדה: `/resources/self-employed-guide`. אחרי השארת פרטים הגולש מועבר ל-`/guide-download`.
+
 ## משתני סביבה
 
 ראו `.env.example`:
 
 - `SITE_URL` — הדומיין הסופי (canonical, sitemap, Open Graph)
-- `PUBLIC_FORM_ENDPOINT` — כתובת שמקבלת את טופס יצירת הקשר כ-JSON (Make / Zapier / Web3Forms / API). מומלץ שהיעד ישמור כל ליד בשני מקומות (מייל + גיליון/CRM). עד שהוא מוגדר, הטופס מציג הודעת תקלה עם טלפון ו-WhatsApp.
+- `PUBLIC_FORM_ENDPOINT` — לא חובה. ברירת המחדל היא `/api/lead` (הפונקציה ב-Cloudflare). משנים רק אם רוצים לשלוח לשירות חיצוני.
 - `PUBLIC_GA_ID` — מזהה GA4. נטען רק אחרי הסכמת הגולש בבאנר העוגיות.
 
 ## מבנה העמודים
