@@ -39,10 +39,8 @@ export const business = {
     { days: 'שישי ושבת', open: null, close: null, schema: [] },
   ],
 
-  social: {
-    facebook: 'https://www.facebook.com/',
-    linkedin: 'https://www.linkedin.com/',
-  },
+  /** Real profile URLs only (they go into the footer and schema sameAs). Empty = hidden. */
+  social: {} as Record<string, string>,
 
   /** Links to external systems clients already use. Leave url empty to hide. */
   clientPortal: { label: 'פורטל לקוחות', url: '' },

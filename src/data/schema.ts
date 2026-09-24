@@ -28,7 +28,7 @@ export function organizationSchema(site: URL) {
     openingHoursSpecification: business.hours
       .filter((h) => h.open)
       .map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.schema, opens: h.open, closes: h.close })),
-    sameAs: Object.values(business.social),
+    ...(Object.keys(business.social).length ? { sameAs: Object.values(business.social) } : {}),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'שירותים',

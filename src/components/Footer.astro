@@ -31,10 +31,11 @@ const year = new Date().getFullYear();
       <p class="f-title">אבטחת מידע</p>
       <p class="secure"><Icon name="lock" size={18} /> החיבור לאתר מוצפן (HTTPS). המסמכים שלך מטופלים בסודיות מקצועית ונשמרים במערכות מאובטחות.</p>
       {business.clientPortal.url && <p><a class="btn btn-light" href={business.clientPortal.url} rel="noopener">{business.clientPortal.label}</a></p>}
-      <ul class="social">
-        <li><a href={business.social.facebook} rel="noopener" target="_blank">Facebook</a></li>
-        <li><a href={business.social.linkedin} rel="noopener" target="_blank">LinkedIn</a></li>
-      </ul>
+      {Object.keys(business.social).length > 0 && (
+        <ul class="social">
+          {Object.entries(business.social).map(([name, url]) => <li><a href={url} rel="noopener" target="_blank">{name}</a></li>)}
+        </ul>
+      )}
     </div>
   </div>
   <div class="wrap bottom">
