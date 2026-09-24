@@ -22,7 +22,7 @@ const schema = {
   description: d.description,
   datePublished: iso(d.pubDate),
   dateModified: iso(d.updatedDate ?? d.pubDate),
-  author: { '@type': 'Person', name: d.author },
+  author: { '@type': 'Person', name: d.author, url: new URL('/team', Astro.site!).href },
   publisher: publisherSchema(Astro.site!),
   image: new URL('/og-default.png', Astro.site!).href,
   mainEntityOfPage: url,

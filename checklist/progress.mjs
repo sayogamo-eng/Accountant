@@ -52,7 +52,7 @@ export const project = {
     'track.legal.status': 'in-progress',
     'track.conversion.status': 'in-progress',
     'stageNotes.research': 'מחקר מתחרים, קבוצות נושא, Long-tail, חיפושים מקומיים והתנגדויות: docs/seo-research.md. מפת מילים (מילה ראשית + Intent לכל URL): src/data/seo.ts, נאכפת בבדיקה אחרי כל build. לא נבדקו נפחי חיפוש — לאמת בכלי מילות מפתח עם הלקוח.',
-    'stageNotes.onpage': 'Schema נבדק מקומית עם structured-data-testing-tool (Google presets) בכל 38 העמודים: 0 שגיאות, אחרי תיקון Article (image, publisher.logo). הבדיקה הרשמית ב-Rich Results Test תיעשה על הדומיין החי.',
+    'stageNotes.onpage': 'Schema נבדק מקומית עם structured-data-testing-tool (Google presets) בכל 38 העמודים: 0 שגיאות, אחרי תיקון Article (image, publisher.logo). Rich Results Test של Google על accountant-8or.pages.dev: Articles ו-Breadcrumbs תקינים, 0 שגיאות (האינדוקס חסום במכוון).',
     'stageNotes.google': 'עסק בדוי: אין Google Business Profile ואין רשתות חברתיות (הקישורים הוסרו מהאתר ומהסכמה). NAP עקבי כי כל פרטי העסק מגיעים מ-src/data/business.ts. רשימת עמודים לבקשת אינדוקס: docs/seo-research.md סעיף 7.',
     'stageNotes.build': 'Wireframes לא נדרשו: העיצוב נבנה ישירות בקוד ומוצג ללקוח לאישור על סביבת ה-Staging. Staging: Cloudflare Pages (accountant-8or.pages.dev). חסום לאינדוקס דרך allowIndexing=false ב-src/data/site.ts: noindex בכל עמוד + X-Robots-Tag בכל תשובה. אומת ב-robots.txt החי.',
     'stageNotes.scope': 'פרויקט לתיק עבודות עם לקוח דמה. אישורי עיצוב, תוכן ונוסחים משפטיים ניתנו ע״י בעל הפרויקט בתפקיד הלקוח (24.9.2026); לקוח אמיתי יאשר מחדש. ה-Scope ורשימת העמודים הם מסמך האיפיון. בעל הפרויקט (sayogamo) משמש כמקבל ההחלטות. סעיפי תקציב, תשלומים, חומרים מהלקוח ובקשות שינוי — לא רלוונטיים ללקוח בדוי.',
@@ -188,6 +188,7 @@ export const marks = {
       'Schema מתאים נבחר',
       'Organization/LocalBusiness/Article/Product/Service/Breadcrumb נבדקו לפי רלוונטיות',
       'Schema תואם למידע שמופיע בעמוד',
+      'Schema עובר Rich Results Test ללא שגיאות',
     ],
   },
   tech: {
